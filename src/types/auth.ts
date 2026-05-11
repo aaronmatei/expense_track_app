@@ -11,3 +11,8 @@ export interface RegisterUserRequest {
   id_number?: string;
   address?: string;
 }
+
+export interface ChangePasswordRequest {
+  current_password: string;
+  new_password: string;
+}

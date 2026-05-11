@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { getMe } from '@/api/users';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { changePassword, getMe, updateMe } from '@/api/users';
 import { useAuth } from '@/lib/auth-context';
 
 export const useMe = () => {
@@ -13,3 +13,19 @@ export const useMe = () => {
     retry: false, // Don't retry on failure (e.g., if the token is invalid)
   });
 };
+
+export function useUpdateMe() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateMe,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['me'] });
+    },
+  });
+}
+
+export function useChangePassword() {
+  return useMutation({
+    mutationFn: changePassword,
+  });
+}

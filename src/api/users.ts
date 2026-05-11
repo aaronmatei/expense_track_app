@@ -1,6 +1,6 @@
 import { apiClient } from '@/lib/api-client';
-import type { RegisterUserRequest } from '@/types/auth';
-import type { User } from '@/types/user';
+import type { ChangePasswordRequest, RegisterUserRequest } from '@/types/auth';
+import type { User, UserUpdate } from '@/types/user';
 
 export async function getCurrentUser(): Promise<User> {
   const { data } = await apiClient.get<User>('/users/me');
@@ -24,4 +24,15 @@ export async function registerUser(
 export async function getMe(): Promise<User> {
   const { data } = await apiClient.get<User>('/users/me');
   return data;
+}
+
+export async function updateMe(payload: UserUpdate): Promise<User> {
+  const { data } = await apiClient.patch<User>('/users/me', payload);
+  return data;
+}
+
+export async function changePassword(
+  payload: ChangePasswordRequest,
+): Promise<void> {
+  await apiClient.post('/users/me/password', payload);
 }
