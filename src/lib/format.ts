@@ -34,3 +34,12 @@ export function getCurrentYearMonth(): { year: number; month: number } {
     const now = new Date()
     return { year: now.getFullYear(), month: now.getMonth() + 1 }
 }
+
+export function formatCompact(amount: number | string): string {
+    return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        notation: "compact",
+        maximumFractionDigits: 1,
+    }).format(Number(amount))
+}

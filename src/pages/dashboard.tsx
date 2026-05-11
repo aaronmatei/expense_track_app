@@ -6,6 +6,8 @@ import {
 } from "lucide-react"
 
 import { BudgetOverview } from "@/components/dashboard/budget-overview"
+import { CategoryBreakdownChart } from "@/components/dashboard/category-breakdown-chart"
+import { MonthlyTrendChart } from "@/components/dashboard/monthly-trend-chart"
 import { RecentTransactions } from "@/components/dashboard/recent-transactions"
 import { StatCard } from "@/components/dashboard/stat-card"
 import { useAccountsSummary } from "@/hooks/use-accounts"
@@ -92,6 +94,15 @@ export function DashboardPage() {
                             : undefined
                     }
                 />
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-3">
+                <div className="lg:col-span-2">
+                    <MonthlyTrendChart />
+                </div>
+                <div className="lg:col-span-1">
+                    <CategoryBreakdownChart />
+                </div>
             </div>
 
             <div className="grid gap-6 lg:grid-cols-3">

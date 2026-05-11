@@ -34,3 +34,18 @@ export interface TransactionSummary {
     net: string
     transaction_count: number
 }
+
+export interface MonthSummary {
+    year: number
+    month: number
+    income: string
+    expenses: string
+}
+
+export interface CategorySummary {
+    category_id: number
+    category_name: string
+    type: "income" | "expense"
+    total: string
+    transaction_count: number
+}

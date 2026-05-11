@@ -1,5 +1,7 @@
 import { apiClient } from "@/lib/api-client"
 import type {
+    CategorySummary,
+    MonthSummary,
     Transaction,
     TransactionCreate,
     TransactionFilters,
@@ -50,6 +52,25 @@ export async function getTransactionsSummary(
 ): Promise<TransactionSummary> {
     const { data } = await apiClient.get<TransactionSummary>(
         "/transactions/summary",
+        { params: { start_date: startDate, end_date: endDate } },
+    )
+    return data
+}
+
+export async function getMonthlySummary(year: number): Promise<MonthSummary[]> {
+    const { data } = await apiClient.get<MonthSummary[]>(
+        "/transactions/summary/by-month",
+        { params: { year } },
+    )
+    return data
+}
+
+export async function getCategorySummary(
+    startDate: string,
+    endDate: string,
+): Promise<CategorySummary[]> {
+    const { data } = await apiClient.get<CategorySummary[]>(
+        "/transactions/summary/by-category",
         { params: { start_date: startDate, end_date: endDate } },
     )
     return data

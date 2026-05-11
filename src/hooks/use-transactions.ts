@@ -3,6 +3,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import {
     createTransaction,
     deleteTransaction,
+    getCategorySummary,
+    getMonthlySummary,
     getTransactionsSummary,
     listTransactions,
     updateTransaction,
@@ -56,5 +58,20 @@ export function useTransactionsSummary(startDate: string, endDate: string) {
     return useQuery({
         queryKey: ["transactions", "summary", startDate, endDate],
         queryFn: () => getTransactionsSummary(startDate, endDate),
+    })
+}
+
+export function useMonthlySummary(year: number, enabled = true) {
+    return useQuery({
+        queryKey: ["transactions", "summary", "by-month", year],
+        queryFn: () => getMonthlySummary(year),
+        enabled,
+    })
+}
+
+export function useCategorySummary(startDate: string, endDate: string) {
+    return useQuery({
+        queryKey: ["transactions", "summary", "by-category", startDate, endDate],
+        queryFn: () => getCategorySummary(startDate, endDate),
     })
 }
