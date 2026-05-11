@@ -35,7 +35,7 @@ export function AppHeader() {
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="gap-2 px-2">
                         <Avatar className="h-8 w-8">
-                            <AvatarFallback className="bg-slate-200 text-slate-700 text-xs">
+                            <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xs">
                                 {me.data ? getInitials(me.data.full_name, me.data.email) : "…"}
                             </AvatarFallback>
                         </Avatar>

@@ -6,10 +6,10 @@ import { getAccessToken, removeAccessToken, setAccessToken } from "./token";
 
 
 interface AuthContextValue {
-    token: string | null;
-    signIn: (token: string) => void;
-    signOut: () => void;
-  }
+  token: string | null;
+  signIn: (token: string) => void;
+  signOut: () => void;
+}
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, signIn, signOut}}>
+    <AuthContext.Provider value={{ token, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

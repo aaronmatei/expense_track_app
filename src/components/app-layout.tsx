@@ -5,7 +5,7 @@ import { AppSidebar } from "@/components/app-sidebar"
 
 export function AppLayout() {
     return (
-        <div className="flex h-screen bg-slate-50">
+        <div className="flex h-screen bg-gradient-to-br from-slate-50 via-slate-50 to-indigo-50/30">
             <AppSidebar />
             <div className="flex flex-1 flex-col overflow-hidden">
                 <AppHeader />
@@ -16,3 +16,5 @@ export function AppLayout() {
         </div>
     )
 }
+
+
