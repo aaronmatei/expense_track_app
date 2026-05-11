@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import {
     createTransaction,
     deleteTransaction,
+    getTransactionsSummary,
     listTransactions,
     updateTransaction,
 } from "@/api/transactions"
@@ -48,5 +49,12 @@ export function useDeleteTransaction() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: TRANSACTIONS_KEY })
         },
+    })
+}
+
+export function useTransactionsSummary(startDate: string, endDate: string) {
+    return useQuery({
+        queryKey: ["transactions", "summary", startDate, endDate],
+        queryFn: () => getTransactionsSummary(startDate, endDate),
     })
 }

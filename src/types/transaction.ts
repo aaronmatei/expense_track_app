@@ -25,3 +25,12 @@ export interface TransactionFilters {
     start_date?: string
     end_date?: string
 }
+
+export interface TransactionSummary {
+    start_date: string
+    end_date: string
+    total_income: string
+    total_expenses: string
+    net: string
+    transaction_count: number
+}

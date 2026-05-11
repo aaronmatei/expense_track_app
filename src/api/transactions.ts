@@ -3,6 +3,7 @@ import type {
     Transaction,
     TransactionCreate,
     TransactionFilters,
+    TransactionSummary,
     TransactionUpdate,
 } from "@/types/transaction"
 
@@ -41,4 +42,15 @@ export async function updateTransaction(
 
 export async function deleteTransaction(id: number): Promise<void> {
     await apiClient.delete(`/transactions/${id}`)
+}
+
+export async function getTransactionsSummary(
+    startDate: string,
+    endDate: string,
+): Promise<TransactionSummary> {
+    const { data } = await apiClient.get<TransactionSummary>(
+        "/transactions/summary",
+        { params: { start_date: startDate, end_date: endDate } },
+    )
+    return data
 }
