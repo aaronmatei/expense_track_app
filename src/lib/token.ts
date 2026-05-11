@@ -8,6 +8,6 @@ export function getAccessToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
 }
 
-export function removeToken(): void {
+export function removeAccessToken(): void {
   localStorage.removeItem(TOKEN_KEY);
 }

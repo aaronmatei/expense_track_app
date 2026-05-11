@@ -1,11 +1,8 @@
 import axios from 'axios';
-import { getAccessToken, removeToken } from '@/lib/token';
+import { getAccessToken, removeAccessToken } from '@/lib/token';
 
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });
 
 // Attach the JWT token to every request if it exists
@@ -28,7 +25,7 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       // Token is invalid or expired, remove it and redirect to login
-      removeToken();
+      removeAccessToken();
       window.location.href = '/login';
     }
     return Promise.reject(error);

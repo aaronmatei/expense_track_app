@@ -1,5 +1,5 @@
 import { apiClient } from '@/lib/api-client';
-import { RegisterUserRequest } from '@/types/auth';
+import type { RegisterUserRequest } from '@/types/auth';
 import type { User } from '@/types/user';
 
 export async function getCurrentUser(): Promise<User> {
