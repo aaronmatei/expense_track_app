@@ -75,7 +75,7 @@ export function EmployeeDialog({
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto overflow-x-hidden p-0">
-                <DialogHeader className="border-b border-slate-200 bg-slate-50/60 px-8 py-5">
+                <DialogHeader className="border-b border-slate-200 dark:border-slate-700 bg-slate-50/60 px-8 py-5">
                     <DialogTitle>
                         {employee ? `Edit ${employee.full_name}` : "Add employee"}
                     </DialogTitle>

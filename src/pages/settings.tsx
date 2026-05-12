@@ -29,7 +29,7 @@ export function SettingsPage() {
         <div className="space-y-6">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
-                <p className="mt-1 text-sm text-slate-600">
+                <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                     Manage your profile and account security
                 </p>
             </div>
@@ -43,7 +43,7 @@ export function SettingsPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        <div className="flex items-center gap-4 rounded-lg bg-slate-50 p-4">
+                        <div className="flex items-center gap-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 p-4">
                             <Avatar className="h-14 w-14">
                                 <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-lg text-white">
                                     {me.data
@@ -55,7 +55,7 @@ export function SettingsPage() {
                                 <p className="font-semibold">
                                     {me.data?.full_name || "—"}
                                 </p>
-                                <p className="text-sm text-slate-500">
+                                <p className="text-sm text-slate-500 dark:text-slate-400">
                                     {me.data?.email}
                                 </p>
                             </div>

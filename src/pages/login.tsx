@@ -36,7 +36,7 @@ export const LoginPage = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-800/50 p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Sign in</CardTitle>
@@ -78,11 +78,11 @@ export const LoginPage = () => {
             >
               {mutation.isPending ? "Signing in…" : "Sign in"}
             </Button>
-            <p className="text-center text-sm text-slate-600">
+            <p className="text-center text-sm text-slate-600 dark:text-slate-300">
               Don't have an account?{" "}
               <Link
                 to="/register"
-                className="font-medium text-slate-900 hover:underline"
+                className="font-medium text-slate-900 dark:text-slate-100 hover:underline"
               >
                 Sign up
               </Link>

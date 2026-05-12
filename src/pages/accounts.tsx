@@ -49,7 +49,7 @@ export function AccountsPage() {
             <div className="flex items-start justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Accounts</h1>
-                    <p className="mt-1 text-sm text-slate-600">
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                         Manage your bank accounts, credit cards, and cash
                     </p>
                 </div>
@@ -61,7 +61,7 @@ export function AccountsPage() {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <Card>
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium text-slate-600">
+                        <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-300">
                             Total balance
                         </CardTitle>
                     </CardHeader>
@@ -69,7 +69,7 @@ export function AccountsPage() {
                         <p className="text-3xl font-bold tracking-tight tabular-nums">
                             {summary.data ? formatUSD(summary.data.total_balance) : "—"}
                         </p>
-                        <p className="mt-1 text-xs text-slate-500">
+                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                             Across accounts marked "Include in total"
                         </p>
                     </CardContent>
@@ -77,7 +77,7 @@ export function AccountsPage() {
 
                 <Card>
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium text-slate-600">
+                        <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-300">
                             Number of accounts
                         </CardTitle>
                     </CardHeader>
@@ -85,7 +85,7 @@ export function AccountsPage() {
                         <p className="text-3xl font-bold tracking-tight">
                             {summary.data?.account_count ?? "—"}
                         </p>
-                        <p className="mt-1 text-xs text-slate-500">
+                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                             {summary.data && summary.data.breakdown.length > 0
                                 ? `${summary.data.breakdown.length} different types`
                                 : "Across all your accounts"}
@@ -95,7 +95,7 @@ export function AccountsPage() {
 
                 <Card>
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium text-slate-600">
+                        <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-300">
                             By type
                         </CardTitle>
                     </CardHeader>
@@ -107,7 +107,7 @@ export function AccountsPage() {
                                         key={b.account_type}
                                         className="flex items-center justify-between text-xs"
                                     >
-                                        <span className="text-slate-600">
+                                        <span className="text-slate-600 dark:text-slate-300">
                                             {ACCOUNT_TYPE_META[b.account_type].label}
                                         </span>
                                         <span className="font-medium tabular-nums">
@@ -117,14 +117,14 @@ export function AccountsPage() {
                                 ))}
                             </div>
                         ) : (
-                            <p className="text-sm text-slate-500">No accounts yet</p>
+                            <p className="text-sm text-slate-500 dark:text-slate-400">No accounts yet</p>
                         )}
                     </CardContent>
                 </Card>
             </div>
 
             {accounts.isLoading && (
-                <p className="text-sm text-slate-600">Loading…</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Loading…</p>
             )}
             {accounts.error && (
                 <p className="text-sm text-red-600">Failed to load accounts</p>
@@ -133,7 +133,7 @@ export function AccountsPage() {
             {accounts.data && accounts.data.length === 0 && (
                 <Card>
                     <CardContent className="flex flex-col items-center gap-3 py-16">
-                        <p className="text-sm text-slate-600">
+                        <p className="text-sm text-slate-600 dark:text-slate-300">
                             You haven't added any accounts yet
                         </p>
                         <Button onClick={handleCreate} variant="outline">

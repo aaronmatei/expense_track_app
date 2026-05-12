@@ -97,12 +97,12 @@ export function BulkMaterializeDialog({
                 {result && (
                     <div className="space-y-3">
                         {result.successful.length > 0 && (
-                            <div className="rounded-md bg-emerald-50 px-4 py-3">
-                                <p className="text-sm font-medium text-emerald-800">
+                            <div className="rounded-md bg-emerald-50 dark:bg-emerald-950/30 px-4 py-3">
+                                <p className="text-sm font-medium text-emerald-800 dark:text-emerald-300">
                                     Generated {result.successful.length}{" "}
                                     {result.successful.length === 1 ? "transaction" : "transactions"}
                                 </p>
-                                <p className="mt-0.5 text-xs text-emerald-700">
+                                <p className="mt-0.5 text-xs text-emerald-700 dark:text-emerald-400">
                                     {result.successful
                                         .map((tx) => {
                                             const t = templateMap.get(tx.recurring_transaction_id ?? -1)
@@ -113,11 +113,11 @@ export function BulkMaterializeDialog({
                             </div>
                         )}
                         {result.failed.length > 0 && (
-                            <div className="rounded-md bg-rose-50 px-4 py-3">
-                                <p className="text-sm font-medium text-rose-800">
+                            <div className="rounded-md bg-rose-50 dark:bg-rose-950/30 px-4 py-3">
+                                <p className="text-sm font-medium text-rose-800 dark:text-rose-300">
                                     Failed: {result.failed.length}
                                 </p>
-                                <ul className="mt-1 space-y-0.5 text-xs text-rose-700">
+                                <ul className="mt-1 space-y-0.5 text-xs text-rose-700 dark:text-rose-400">
                                     {result.failed.map((f) => (
                                         <li key={f.recurring_transaction_id}>
                                             <span className="font-medium">
@@ -139,7 +139,7 @@ export function BulkMaterializeDialog({
                 {!result && (
                     <>
                         {bulkMutation.isError && (
-                            <p className="rounded-md bg-rose-50 px-3 py-2 text-sm text-rose-700">
+                            <p className="rounded-md bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-sm text-rose-700 dark:text-rose-400">
                                 {getErrorMessage(bulkMutation.error)}
                             </p>
                         )}
@@ -157,7 +157,7 @@ export function BulkMaterializeDialog({
 
                         <div className="max-h-64 overflow-y-auto rounded-md border">
                             <table className="w-full text-sm">
-                                <thead className="border-b bg-slate-50 text-xs text-slate-500">
+                                <thead className="border-b bg-slate-50 dark:bg-slate-800/50 text-xs text-slate-500 dark:text-slate-400">
                                     <tr>
                                         <th className="px-3 py-2 text-left">Template</th>
                                         <th className="px-3 py-2 text-left">Amount (KES)</th>
@@ -171,7 +171,7 @@ export function BulkMaterializeDialog({
                                         return (
                                             <tr
                                                 key={row.rtId}
-                                                className={!row.amount ? "bg-amber-50" : undefined}
+                                                className={!row.amount ? "bg-amber-50 dark:bg-amber-950/30" : undefined}
                                             >
                                                 <td className="px-3 py-2">
                                                     <p className="font-medium">{t.description}</p>
@@ -214,7 +214,7 @@ export function BulkMaterializeDialog({
 
                         <div className="flex items-center justify-between border-t pt-4">
                             <div>
-                                <p className="text-xs text-slate-500">Total</p>
+                                <p className="text-xs text-slate-500 dark:text-slate-400">Total</p>
                                 <p className="text-lg font-bold tabular-nums">
                                     KES{" "}
                                     {total.toLocaleString(undefined, {

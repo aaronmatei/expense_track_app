@@ -37,18 +37,18 @@ export function DashboardPage() {
         : "—"
     const netValueClass =
         net === null
-            ? "text-slate-900"
+            ? "text-slate-900 dark:text-slate-100"
             : net > 0
-              ? "text-emerald-600"
+              ? "text-emerald-600 dark:text-emerald-400"
               : net < 0
-                ? "text-rose-600"
-                : "text-slate-900"
+                ? "text-rose-600 dark:text-rose-400"
+                : "text-slate-900 dark:text-slate-100"
 
     return (
         <div className="space-y-6">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-                <p className="mt-1 text-sm text-slate-600">
+                <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                     Welcome back, {me.data?.full_name || me.data?.email}
                 </p>
             </div>
@@ -58,8 +58,8 @@ export function DashboardPage() {
                     title="Total balance"
                     value={balance}
                     icon={Wallet}
-                    iconColor="text-indigo-600"
-                    iconBg="bg-indigo-50"
+                    iconColor="text-indigo-600 dark:text-indigo-400"
+                    iconBg="bg-indigo-50 dark:bg-indigo-950/30"
                     caption={
                         accountsSummary.data
                             ? `Across ${accountsSummary.data.account_count} ${accountsSummary.data.account_count === 1 ? "account" : "accounts"}`
@@ -70,24 +70,24 @@ export function DashboardPage() {
                     title="Income this month"
                     value={income}
                     icon={TrendingUp}
-                    iconColor="text-emerald-600"
-                    iconBg="bg-emerald-50"
-                    valueClassName="text-emerald-600"
+                    iconColor="text-emerald-600 dark:text-emerald-400"
+                    iconBg="bg-emerald-50 dark:bg-emerald-950/30"
+                    valueClassName="text-emerald-600 dark:text-emerald-400"
                 />
                 <StatCard
                     title="Expenses this month"
                     value={expenses}
                     icon={TrendingDown}
-                    iconColor="text-rose-600"
-                    iconBg="bg-rose-50"
-                    valueClassName="text-rose-600"
+                    iconColor="text-rose-600 dark:text-rose-400"
+                    iconBg="bg-rose-50 dark:bg-rose-950/30"
+                    valueClassName="text-rose-600 dark:text-rose-400"
                 />
                 <StatCard
                     title="Net this month"
                     value={netFormatted}
                     icon={CircleDollarSign}
-                    iconColor="text-indigo-600"
-                    iconBg="bg-indigo-50"
+                    iconColor="text-indigo-600 dark:text-indigo-400"
+                    iconBg="bg-indigo-50 dark:bg-indigo-950/30"
                     valueClassName={netValueClass}
                     caption={
                         txSummary.data

@@ -105,7 +105,7 @@ export function TransactionsPage() {
             <div className="flex items-start justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Transactions</h1>
-                    <p className="mt-1 text-sm text-slate-600">
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                         View and manage your income and expenses
                     </p>
                 </div>
@@ -122,42 +122,42 @@ export function TransactionsPage() {
             />
 
             {visibleTransactions && visibleTransactions.length > 0 && (
-                <div className="flex flex-wrap items-center gap-x-8 gap-y-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm">
+                <div className="flex flex-wrap items-center gap-x-8 gap-y-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm">
                     <div className="flex items-center gap-1.5">
-                        <span className="text-slate-500">Income</span>
-                        <span className="font-semibold tabular-nums text-emerald-600">
+                        <span className="text-slate-500 dark:text-slate-400">Income</span>
+                        <span className="font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">
                             +{formatCurrency(stats.income)}
                         </span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                        <span className="text-slate-500">Expenses</span>
-                        <span className="font-semibold tabular-nums text-rose-600">
+                        <span className="text-slate-500 dark:text-slate-400">Expenses</span>
+                        <span className="font-semibold tabular-nums text-rose-600 dark:text-rose-400">
                             -{formatCurrency(stats.expenses)}
                         </span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                        <span className="text-slate-500">Net</span>
+                        <span className="text-slate-500 dark:text-slate-400">Net</span>
                         <span
                             className={cn(
                                 "font-semibold tabular-nums",
                                 stats.net > 0
-                                    ? "text-emerald-600"
+                                    ? "text-emerald-600 dark:text-emerald-400"
                                     : stats.net < 0
-                                        ? "text-rose-600"
-                                        : "text-slate-700",
+                                        ? "text-rose-600 dark:text-rose-400"
+                                        : "text-slate-700 dark:text-slate-300",
                             )}
                         >
                             {stats.net > 0 && "+"}{formatCurrency(stats.net)}
                         </span>
                     </div>
-                    <div className="ml-auto text-slate-500">
+                    <div className="ml-auto text-slate-500 dark:text-slate-400">
                         {stats.count} {stats.count === 1 ? "transaction" : "transactions"}
                     </div>
                 </div>
             )}
 
             {transactions.isLoading && (
-                <p className="text-sm text-slate-600">Loading…</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Loading…</p>
             )}
             {transactions.error && (
                 <p className="text-sm text-red-600">Failed to load transactions</p>
@@ -166,7 +166,7 @@ export function TransactionsPage() {
             {visibleTransactions && visibleTransactions.length === 0 && (
                 <Card>
                     <CardContent className="flex flex-col items-center gap-3 py-16">
-                        <p className="text-sm text-slate-600">
+                        <p className="text-sm text-slate-600 dark:text-slate-300">
                             {hasActiveFilters
                                 ? "No transactions match these filters"
                                 : "You haven't recorded any transactions yet"}

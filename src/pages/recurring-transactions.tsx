@@ -68,7 +68,7 @@ export function RecurringTransactionsPage() {
                     <h1 className="text-3xl font-bold tracking-tight">
                         Recurring Transactions
                     </h1>
-                    <p className="mt-1 text-sm text-slate-600">
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                         Templates that generate transactions when you click Generate
                     </p>
                 </div>
@@ -112,7 +112,7 @@ export function RecurringTransactionsPage() {
 
             {/* Loading / error */}
             {query.isLoading && (
-                <p className="text-sm text-slate-600">Loading…</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Loading…</p>
             )}
             {query.error && (
                 <p className="text-sm text-red-600">Failed to load recurring transactions</p>
@@ -122,7 +122,7 @@ export function RecurringTransactionsPage() {
             {!query.isLoading && templates.length === 0 && (
                 <Card>
                     <CardContent className="flex flex-col items-center gap-3 py-16">
-                        <p className="text-sm text-slate-600">
+                        <p className="text-sm text-slate-600 dark:text-slate-300">
                             No recurring transactions yet
                         </p>
                         <Button onClick={handleCreate} variant="outline">
@@ -147,7 +147,7 @@ export function RecurringTransactionsPage() {
             {!query.isLoading && templates.length > 0 && active.length === 0 && statusFilter !== "paused" && (
                 <Card>
                     <CardContent className="py-10 text-center">
-                        <p className="text-sm text-slate-500">
+                        <p className="text-sm text-slate-500 dark:text-slate-400">
                             No active templates match your filters
                         </p>
                     </CardContent>
@@ -158,7 +158,7 @@ export function RecurringTransactionsPage() {
             {paused.length > 0 && (
                 <details className="group rounded-lg border">
                     <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3">
-                        <span className="text-sm font-medium text-slate-600">
+                        <span className="text-sm font-medium text-slate-600 dark:text-slate-300">
                             Paused ({paused.length})
                         </span>
                         <ChevronDown className="h-4 w-4 text-slate-400 transition-transform group-open:rotate-180" />

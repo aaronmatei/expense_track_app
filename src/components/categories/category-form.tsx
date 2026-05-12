@@ -88,7 +88,7 @@ export function CategoryForm({
 
                 {/* Emoji presets */}
                 <div>
-                    <p className="mb-1.5 text-xs text-slate-500">Emojis</p>
+                    <p className="mb-1.5 text-xs text-slate-500 dark:text-slate-400">Emojis</p>
                     <div className="grid grid-cols-4 gap-1 sm:grid-cols-8">
                         {EMOJI_PRESETS.map((e) => (
                             <button
@@ -99,7 +99,7 @@ export function CategoryForm({
                                     "flex h-10 w-full items-center justify-center rounded-md border text-lg transition-colors hover:border-indigo-400",
                                     icon === e
                                         ? "border-indigo-500 ring-2 ring-indigo-500"
-                                        : "border-slate-200",
+                                        : "border-slate-200 dark:border-slate-700",
                                 )}
                             >
                                 {e}
@@ -110,7 +110,7 @@ export function CategoryForm({
 
                 {/* Lucide icon presets */}
                 <div>
-                    <p className="mb-1.5 text-xs text-slate-500">Icons</p>
+                    <p className="mb-1.5 text-xs text-slate-500 dark:text-slate-400">Icons</p>
                     <div className="grid grid-cols-4 gap-1 sm:grid-cols-8">
                         {LUCIDE_PRESETS.map((name) => (
                             <button
@@ -122,10 +122,10 @@ export function CategoryForm({
                                     "flex h-10 w-full items-center justify-center rounded-md border transition-colors hover:border-indigo-400",
                                     icon === name
                                         ? "border-indigo-500 ring-2 ring-indigo-500"
-                                        : "border-slate-200",
+                                        : "border-slate-200 dark:border-slate-700",
                                 )}
                             >
-                                <DynamicIcon name={name as IconName} className="h-5 w-5 text-slate-600" />
+                                <DynamicIcon name={name as IconName} className="h-5 w-5 text-slate-600 dark:text-slate-300" />
                             </button>
                         ))}
                     </div>
@@ -133,7 +133,7 @@ export function CategoryForm({
 
                 {/* Custom input */}
                 <div>
-                    <p className="mb-1.5 text-xs text-slate-500">
+                    <p className="mb-1.5 text-xs text-slate-500 dark:text-slate-400">
                         Or enter a custom emoji or Lucide icon name
                     </p>
                     <div className="flex items-center gap-2">

@@ -16,7 +16,7 @@ export function CategoryCard({
     onDelete,
 }: CategoryCardProps) {
     return (
-        <div className="group flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-3">
+        <div className="group flex items-center gap-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-3">
             <div
                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-lg text-white"
                 style={{ backgroundColor: category.color ?? "#94a3b8" }}

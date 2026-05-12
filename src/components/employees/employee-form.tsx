@@ -41,7 +41,7 @@ import type { Employee, PayFrequency } from "@/types/employee"
 const inputClass = "h-10 border-slate-300 focus-visible:border-indigo-500 focus-visible:ring-indigo-500/20"
 const selectClass = "h-10 border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20"
 const textareaClass = "min-h-[80px] border-slate-300 focus-visible:border-indigo-500 focus-visible:ring-indigo-500/20"
-const labelClass = "text-sm font-medium text-slate-700"
+const labelClass = "text-sm font-medium text-slate-700 dark:text-slate-300"
 
 function RequiredMark() {
     return <span className="text-rose-500">*</span>
@@ -303,7 +303,7 @@ function EmploymentStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
                             </FormControl>
                             <label
                                 htmlFor="is_active"
-                                className="cursor-pointer select-none text-sm text-slate-700"
+                                className="cursor-pointer select-none text-sm text-slate-700 dark:text-slate-300"
                             >
                                 Active employee
                             </label>
@@ -440,7 +440,7 @@ function PayrollStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
                         <FormLabel className={labelClass}>Typical pay amount</FormLabel>
                         <FormControl>
                             <div className="relative">
-                                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-500">
+                                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-500 dark:text-slate-400">
                                     KES
                                 </span>
                                 <Input
@@ -453,7 +453,7 @@ function PayrollStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
                                 />
                             </div>
                         </FormControl>
-                        <p className="text-xs text-slate-500">
+                        <p className="text-xs text-slate-500 dark:text-slate-400">
                             Optional — pre-fills when you mark this employee paid.
                         </p>
                         <FormMessage />
@@ -645,7 +645,7 @@ export function EmployeeForm({
         <Form {...form}>
             <form onSubmit={(e) => e.preventDefault()}>
                 <div className="px-8 py-6">
-                    <h2 className="mb-6 text-lg font-semibold text-slate-900">
+                    <h2 className="mb-6 text-lg font-semibold text-slate-900 dark:text-slate-100">
                         {STEP_LABELS[currentStep]}
                     </h2>
 
@@ -657,24 +657,24 @@ export function EmployeeForm({
                 </div>
 
                 {errorMessage && (
-                    <div className="mx-8 mb-3 rounded-md border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                    <div className="mx-8 mb-3 rounded-md border border-rose-200 dark:border-rose-800/50 bg-rose-50 dark:bg-rose-950/30 px-4 py-3 text-sm text-rose-700 dark:text-rose-400">
                         {errorMessage}
                     </div>
                 )}
 
-                <div className="flex items-center justify-between border-t border-slate-200 bg-slate-50/60 px-8 py-3">
+                <div className="flex items-center justify-between border-t border-slate-200 dark:border-slate-700 bg-slate-50/60 px-8 py-3">
                     <Button
                         type="button"
                         variant="ghost"
                         onClick={handlePrev}
                         disabled={currentStep === 0}
-                        className="text-slate-600 hover:text-slate-900 disabled:opacity-40"
+                        className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-slate-100 disabled:opacity-40"
                     >
                         <ChevronLeft className="mr-1 h-4 w-4" />
                         Back
                     </Button>
 
-                    <span className="text-sm font-medium tabular-nums text-slate-700">
+                    <span className="text-sm font-medium tabular-nums text-slate-700 dark:text-slate-300">
                         {currentStep + 1} / {STEP_LABELS.length}
                     </span>
 
@@ -684,7 +684,7 @@ export function EmployeeForm({
                             type="button"
                             variant="ghost"
                             onClick={handleNext}
-                            className="text-indigo-600 hover:bg-indigo-50 hover:text-indigo-700"
+                            className="text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 hover:text-indigo-700 dark:text-indigo-300"
                         >
                             Next
                             <ChevronRight className="ml-1 h-4 w-4" />

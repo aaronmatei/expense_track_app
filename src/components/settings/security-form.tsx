@@ -70,7 +70,7 @@ export function SecurityForm() {
                     required
                 />
                 {tooShort && (
-                    <p className="text-xs text-rose-600">
+                    <p className="text-xs text-rose-600 dark:text-rose-400">
                         Password must be at least 8 characters.
                     </p>
                 )}
@@ -87,12 +87,12 @@ export function SecurityForm() {
                     required
                 />
                 {mismatch && (
-                    <p className="text-xs text-rose-600">Passwords do not match.</p>
+                    <p className="text-xs text-rose-600 dark:text-rose-400">Passwords do not match.</p>
                 )}
             </div>
 
             {changePassword.isError && (
-                <p className="text-sm text-rose-600">
+                <p className="text-sm text-rose-600 dark:text-rose-400">
                     {getErrorMessage(changePassword.error)}
                 </p>
             )}
@@ -102,7 +102,7 @@ export function SecurityForm() {
                     {changePassword.isPending ? "Saving…" : "Update password"}
                 </Button>
                 {saved && (
-                    <span className="flex items-center gap-1 text-sm text-emerald-600">
+                    <span className="flex items-center gap-1 text-sm text-emerald-600 dark:text-emerald-400">
                         <Check className="h-4 w-4" />
                         Saved
                     </span>

@@ -44,7 +44,7 @@ export function RecurringTransactionDialog({
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto overflow-x-hidden p-0">
-                <DialogHeader className="border-b border-slate-200 bg-slate-50/60 px-6 py-4">
+                <DialogHeader className="border-b border-slate-200 dark:border-slate-700 bg-slate-50/60 px-6 py-4">
                     <DialogTitle>
                         {template ? "Edit recurring template" : "New recurring transaction"}
                     </DialogTitle>

@@ -63,7 +63,7 @@ export function TransactionList({
                     const isIncome = category?.type === "income"
                     return (
                         <TableRow key={t.id} className="group">
-                            <TableCell className="text-sm text-slate-600">
+                            <TableCell className="text-sm text-slate-600 dark:text-slate-300">
                                 {formatDate(t.transaction_date)}
                             </TableCell>
                             <TableCell>
@@ -83,20 +83,20 @@ export function TransactionList({
                                     <span className="text-sm text-slate-400">Unknown</span>
                                 )}
                             </TableCell>
-                            <TableCell className="text-sm text-slate-600">
+                            <TableCell className="text-sm text-slate-600 dark:text-slate-300">
                                 {account?.name ?? "—"}
                             </TableCell>
-                            <TableCell className="max-w-xs text-sm text-slate-600">
+                            <TableCell className="max-w-xs text-sm text-slate-600 dark:text-slate-300">
                                 <div className="flex flex-col gap-1">
                                     <span className="truncate">{t.description || "—"}</span>
                                     {t.employee && (
-                                        <span className="inline-flex w-fit items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">
+                                        <span className="inline-flex w-fit items-center gap-1 rounded-full bg-indigo-50 dark:bg-indigo-950/30 px-2 py-0.5 text-xs text-indigo-700 dark:text-indigo-300">
                                             <Users className="h-3 w-3" />
                                             {t.employee.full_name}
                                         </span>
                                     )}
                                     {t.recurring_transaction_id && (
-                                        <span className="inline-flex w-fit items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">
+                                        <span className="inline-flex w-fit items-center gap-1 rounded-full bg-indigo-50 dark:bg-indigo-950/30 px-2 py-0.5 text-xs text-indigo-700 dark:text-indigo-300">
                                             <Repeat className="h-3 w-3" />
                                             Recurring
                                         </span>
@@ -106,7 +106,7 @@ export function TransactionList({
                             <TableCell
                                 className={cn(
                                     "text-right text-sm font-semibold tabular-nums",
-                                    isIncome ? "text-emerald-600" : "text-rose-600",
+                                    isIncome ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400",
                                 )}
                             >
                                 {formatAmount(t.amount, isIncome)}

@@ -1,5 +1,7 @@
 import { LogOut, ChevronDown } from "lucide-react"
 
+import { ThemeToggle } from "@/components/theme-toggle"
+
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -30,7 +32,9 @@ export function AppHeader() {
     const { signOut } = useAuth()
 
     return (
-        <header className="flex h-16 items-center justify-end border-b border-slate-200 bg-white px-6">
+        <header className="flex h-16 items-center justify-end border-b border-slate-200 bg-white px-6 dark:border-slate-800 dark:bg-slate-900">
+            <div className="flex items-center gap-2">
+            <ThemeToggle />
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="gap-2 px-2">
@@ -42,13 +46,13 @@ export function AppHeader() {
                         <span className="text-sm font-medium">
                             {me.data?.full_name || me.data?.email}
                         </span>
-                        <ChevronDown className="h-4 w-4 text-slate-500" />
+                        <ChevronDown className="h-4 w-4 text-slate-500 dark:text-slate-400" />
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
                     <DropdownMenuLabel>
                         <p className="text-sm font-medium">{me.data?.full_name}</p>
-                        <p className="text-xs font-normal text-slate-500">
+                        <p className="text-xs font-normal text-slate-500 dark:text-slate-400">
                             {me.data?.email}
                         </p>
                     </DropdownMenuLabel>
@@ -59,6 +63,7 @@ export function AppHeader() {
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
+            </div>
         </header>
     )
 }

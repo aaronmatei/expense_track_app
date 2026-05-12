@@ -148,7 +148,7 @@ export function RecurringTransactionForm({
     return (
         <form onSubmit={(e) => e.preventDefault()} className="space-y-5 px-6 pb-6 pt-4">
             {errorMessage && (
-                <p className="rounded-md bg-rose-50 px-3 py-2 text-sm text-rose-700">
+                <p className="rounded-md bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-sm text-rose-700 dark:text-rose-400">
                     {errorMessage}
                 </p>
             )}
@@ -163,7 +163,7 @@ export function RecurringTransactionForm({
                     placeholder="e.g. Rent payment"
                 />
                 {submitted && !form.description.trim() && (
-                    <p className="text-xs text-amber-600">Description is required.</p>
+                    <p className="text-xs text-amber-600 dark:text-amber-400">Description is required.</p>
                 )}
             </div>
 
@@ -184,7 +184,7 @@ export function RecurringTransactionForm({
                 <div className="space-y-1.5">
                     <Label htmlFor="rt_amount">Amount</Label>
                     <div className="relative">
-                        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-500">
+                        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-500 dark:text-slate-400">
                             KES
                         </span>
                         <Input
@@ -198,7 +198,7 @@ export function RecurringTransactionForm({
                         />
                     </div>
                     {submitted && !form.amount && (
-                        <p className="text-xs text-amber-600">Amount is required.</p>
+                        <p className="text-xs text-amber-600 dark:text-amber-400">Amount is required.</p>
                     )}
                 </div>
             </div>
@@ -223,7 +223,7 @@ export function RecurringTransactionForm({
                         </SelectContent>
                     </Select>
                     {submitted && !form.category_id && (
-                        <p className="text-xs text-amber-600">Category is required.</p>
+                        <p className="text-xs text-amber-600 dark:text-amber-400">Category is required.</p>
                     )}
                 </div>
                 <div className="space-y-1.5">
@@ -244,7 +244,7 @@ export function RecurringTransactionForm({
                         </SelectContent>
                     </Select>
                     {submitted && !form.account_id && (
-                        <p className="text-xs text-amber-600">Account is required.</p>
+                        <p className="text-xs text-amber-600 dark:text-amber-400">Account is required.</p>
                     )}
                 </div>
             </div>
@@ -270,7 +270,7 @@ export function RecurringTransactionForm({
             </div>
 
             {/* Recurrence config */}
-            <div className="rounded-md border border-slate-100 bg-slate-50 p-3">
+            <div className="rounded-md border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-3">
                 <RecurrenceConfigInput
                     frequency={form.frequency}
                     value={form.day_config}
@@ -289,7 +289,7 @@ export function RecurringTransactionForm({
                         onChange={(e) => set("start_date", e.target.value)}
                     />
                     {submitted && !form.start_date && (
-                        <p className="text-xs text-amber-600">Start date is required.</p>
+                        <p className="text-xs text-amber-600 dark:text-amber-400">Start date is required.</p>
                     )}
                 </div>
                 <div className="space-y-1.5">

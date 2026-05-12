@@ -74,7 +74,7 @@ export function DuePaymentsSection({
                     <div className="flex items-center gap-2">
                         <h2 className="text-sm font-semibold">Due Payments</h2>
                         {payable.length > 0 && (
-                            <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700">
+                            <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700 dark:text-rose-400">
                                 {payable.length}
                             </span>
                         )}
@@ -82,7 +82,7 @@ export function DuePaymentsSection({
                     {variant === "widget" && payable.length > limit && (
                         <Link
                             to="/employees"
-                            className="text-xs text-indigo-600 hover:underline"
+                            className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
                         >
                             View all ({payable.length})
                         </Link>
@@ -96,7 +96,7 @@ export function DuePaymentsSection({
                             />
                             <label
                                 htmlFor="select-all"
-                                className="cursor-pointer text-xs text-slate-500"
+                                className="cursor-pointer text-xs text-slate-500 dark:text-slate-400"
                             >
                                 Select all
                             </label>
@@ -106,7 +106,7 @@ export function DuePaymentsSection({
 
                 {/* Empty state (widget only — page variant hides whole section) */}
                 {payable.length === 0 && variant === "widget" && (
-                    <p className="px-4 py-6 text-center text-sm text-slate-500">
+                    <p className="px-4 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
                         Everyone is up to date 🎉
                     </p>
                 )}
@@ -162,7 +162,7 @@ export function DuePaymentsSection({
                         <Button
                             size="sm"
                             variant="outline"
-                            className="shrink-0 border-rose-200 text-rose-700 hover:bg-rose-50"
+                            className="shrink-0 border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-400 hover:bg-rose-50"
                             onClick={() => openPay(emp)}
                         >
                             <DollarSign className="mr-1 h-3.5 w-3.5" />
@@ -176,7 +176,7 @@ export function DuePaymentsSection({
                     <div className="border-t px-4 py-2 text-center">
                         <Link
                             to="/employees"
-                            className="text-xs text-indigo-600 hover:underline"
+                            className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
                         >
                             View all {payable.length} due employees →
                         </Link>

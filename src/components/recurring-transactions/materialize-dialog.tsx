@@ -73,7 +73,7 @@ export function MaterializeDialog({
                 <DialogHeader>
                     <DialogTitle>Generate transaction</DialogTitle>
                     <DialogDescription asChild>
-                        <div className="flex flex-col gap-1 text-sm text-slate-500">
+                        <div className="flex flex-col gap-1 text-sm text-slate-500 dark:text-slate-400">
                             <span>{template.description}</span>
                             <FrequencyBadge
                                 frequency={template.frequency}
@@ -85,7 +85,7 @@ export function MaterializeDialog({
 
                 <div className="space-y-4">
                     {materializeMutation.isError && (
-                        <p className="rounded-md bg-rose-50 px-3 py-2 text-sm text-rose-700">
+                        <p className="rounded-md bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-sm text-rose-700 dark:text-rose-400">
                             {getErrorMessage(materializeMutation.error)}
                         </p>
                     )}

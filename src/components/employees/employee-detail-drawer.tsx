@@ -36,7 +36,7 @@ function MaskedField({ value }: { value: string | null }) {
             <button
                 type="button"
                 onClick={() => setVisible((v) => !v)}
-                className="ml-1 text-slate-400 hover:text-slate-600"
+                className="ml-1 text-slate-400 hover:text-slate-600 dark:text-slate-300"
             >
                 {visible ? (
                     <EyeOff className="h-3 w-3" />
@@ -54,7 +54,7 @@ function InfoRow({ label, value }: { label: string; value: React.ReactNode }) {
             <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
                 {label}
             </p>
-            <p className="mt-0.5 text-sm text-slate-700">
+            <p className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">
                 {value ?? <span className="text-slate-400">—</span>}
             </p>
         </div>
@@ -109,7 +109,7 @@ export function EmployeeDetailDrawer({
                                     {employee.full_name}
                                 </SheetTitle>
                                 {employee.position && (
-                                    <p className="text-sm text-slate-500">
+                                    <p className="text-sm text-slate-500 dark:text-slate-400">
                                         {employee.position}
                                     </p>
                                 )}
@@ -117,8 +117,8 @@ export function EmployeeDetailDrawer({
                                     className={cn(
                                         "mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium",
                                         employee.is_active
-                                            ? "bg-emerald-100 text-emerald-700"
-                                            : "bg-slate-100 text-slate-500",
+                                            ? "bg-emerald-100 text-emerald-700 dark:text-emerald-400"
+                                            : "bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400",
                                     )}
                                 >
                                     {employee.is_active ? "Active" : "Inactive"}
@@ -128,7 +128,7 @@ export function EmployeeDetailDrawer({
                     </SheetHeader>
 
                     {/* Summary info */}
-                    <div className="mb-4 grid grid-cols-2 gap-3 rounded-lg border bg-slate-50 p-4">
+                    <div className="mb-4 grid grid-cols-2 gap-3 rounded-lg border bg-slate-50 dark:bg-slate-800/50 p-4">
                         <div>
                             <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
                                 Pay schedule
@@ -143,7 +143,7 @@ export function EmployeeDetailDrawer({
                                         KES {Number(employee.pay_amount).toLocaleString()}
                                     </span>
                                 ) : (
-                                    <span className="text-sm italic text-slate-500">N/A</span>
+                                    <span className="text-sm italic text-slate-500 dark:text-slate-400">N/A</span>
                                 )}
                             </div>
                         </div>
@@ -191,7 +191,7 @@ export function EmployeeDetailDrawer({
                             </p>
                             <p className="mt-1 text-sm">
                                 {employee.next_pay_date ? (
-                                    <span className={employee.is_due_for_pay ? "font-semibold text-rose-600" : ""}>
+                                    <span className={employee.is_due_for_pay ? "font-semibold text-rose-600 dark:text-rose-400" : ""}>
                                         {formatDate(employee.next_pay_date)}
                                         {employee.is_due_for_pay && " (Due)"}
                                     </span>
@@ -260,7 +260,7 @@ export function EmployeeDetailDrawer({
                                     <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
                                         Address
                                     </p>
-                                    <p className="mt-0.5 text-sm text-slate-700">
+                                    <p className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">
                                         {employee.address}
                                     </p>
                                 </div>
@@ -270,7 +270,7 @@ export function EmployeeDetailDrawer({
                                     <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
                                         Notes
                                     </p>
-                                    <p className="mt-0.5 whitespace-pre-wrap text-sm text-slate-700">
+                                    <p className="mt-0.5 whitespace-pre-wrap text-sm text-slate-700 dark:text-slate-300">
                                         {employee.notes}
                                     </p>
                                 </div>
@@ -322,14 +322,14 @@ export function EmployeeDetailDrawer({
                         {/* Payment history tab */}
                         <TabsContent value="history" className="mt-4">
                             {transactions.isLoading && (
-                                <p className="text-sm text-slate-500">
+                                <p className="text-sm text-slate-500 dark:text-slate-400">
                                     Loading…
                                 </p>
                             )}
                             {!transactions.isLoading &&
                                 transactions.data?.length === 0 && (
                                     <div className="py-8 text-center">
-                                        <p className="text-sm text-slate-500">
+                                        <p className="text-sm text-slate-500 dark:text-slate-400">
                                             No payments yet
                                         </p>
                                     </div>
@@ -343,14 +343,14 @@ export function EmployeeDetailDrawer({
                                                 className="flex items-center justify-between rounded-md px-2 py-2 text-sm hover:bg-slate-50"
                                             >
                                                 <div>
-                                                    <p className="text-xs text-slate-500">
+                                                    <p className="text-xs text-slate-500 dark:text-slate-400">
                                                         {tx.transaction_date}
                                                     </p>
-                                                    <p className="text-slate-700">
+                                                    <p className="text-slate-700 dark:text-slate-300">
                                                         {tx.description ?? "Payment"}
                                                     </p>
                                                 </div>
-                                                <span className="font-medium tabular-nums text-rose-600">
+                                                <span className="font-medium tabular-nums text-rose-600 dark:text-rose-400">
                                                     KES{" "}
                                                     {Number(tx.amount).toLocaleString()}
                                                 </span>

@@ -43,7 +43,7 @@ interface PayFrequencyBadgeProps {
 
 export function PayFrequencyBadge({ frequency, config }: PayFrequencyBadgeProps) {
     return (
-        <span className="inline-block rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-700">
+        <span className="inline-block rounded-full bg-slate-100 dark:bg-slate-700/50 px-2 py-0.5 text-xs text-slate-700 dark:text-slate-300">
             {describe(frequency, config)}
         </span>
     )

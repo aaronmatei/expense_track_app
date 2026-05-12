@@ -19,17 +19,17 @@ export function RecentTransactions() {
                 <CardTitle className="text-base">Recent activity</CardTitle>
                 <Link
                     to="/transactions"
-                    className="text-xs text-indigo-600 hover:underline"
+                    className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
                 >
                     View all
                 </Link>
             </CardHeader>
             <CardContent className="p-0">
                 {transactions.isLoading && (
-                    <p className="px-6 py-4 text-sm text-slate-600">Loading…</p>
+                    <p className="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Loading…</p>
                 )}
                 {transactions.data && transactions.data.length === 0 && (
-                    <p className="px-6 py-8 text-center text-sm text-slate-500">
+                    <p className="px-6 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
                         No transactions yet
                     </p>
                 )}
@@ -56,18 +56,18 @@ export function RecentTransactions() {
                                             {category?.name ?? "Unknown"}
                                         </p>
                                         {t.description && (
-                                            <p className="truncate text-xs text-slate-500">
+                                            <p className="truncate text-xs text-slate-500 dark:text-slate-400">
                                                 {t.description}
                                             </p>
                                         )}
                                         {t.employee && (
-                                            <span className="mt-0.5 inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">
+                                            <span className="mt-0.5 inline-flex items-center gap-1 rounded-full bg-indigo-50 dark:bg-indigo-950/30 px-2 py-0.5 text-xs text-indigo-700 dark:text-indigo-300">
                                                 <Users className="h-3 w-3" />
                                                 {t.employee.full_name}
                                             </span>
                                         )}
                                         {t.recurring_transaction_id && (
-                                            <span className="mt-0.5 inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">
+                                            <span className="mt-0.5 inline-flex items-center gap-1 rounded-full bg-indigo-50 dark:bg-indigo-950/30 px-2 py-0.5 text-xs text-indigo-700 dark:text-indigo-300">
                                                 <Repeat className="h-3 w-3" />
                                                 Recurring
                                             </span>
@@ -78,8 +78,8 @@ export function RecentTransactions() {
                                             className={cn(
                                                 "text-sm font-semibold tabular-nums",
                                                 isIncome
-                                                    ? "text-emerald-600"
-                                                    : "text-rose-600",
+                                                    ? "text-emerald-600 dark:text-emerald-400"
+                                                    : "text-rose-600 dark:text-rose-400",
                                             )}
                                         >
                                             {isIncome ? "+" : "-"}
@@ -88,7 +88,7 @@ export function RecentTransactions() {
                                                 currency: "USD",
                                             }).format(Number(t.amount))}
                                         </p>
-                                        <p className="text-xs text-slate-500">
+                                        <p className="text-xs text-slate-500 dark:text-slate-400">
                                             {formatShortDate(t.transaction_date)}
                                         </p>
                                     </div>

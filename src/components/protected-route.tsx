@@ -11,7 +11,7 @@ export const ProtectedRoute = () => {
     }
 
     if (isLoading) {
-        <div className="flex min-h-screen items-center justify-center text-slate-600">
+        <div className="flex min-h-screen items-center justify-center text-slate-600 dark:text-slate-300">
         Loading…
       </div>
     }

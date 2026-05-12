@@ -65,7 +65,7 @@ export function DueRecurringSection({
                     <div className="flex items-center gap-2">
                         <h2 className="text-sm font-semibold">Due Now</h2>
                         {due.length > 0 && (
-                            <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700">
+                            <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700 dark:text-rose-400">
                                 {due.length}
                             </span>
                         )}
@@ -73,7 +73,7 @@ export function DueRecurringSection({
                     {variant === "widget" && due.length > limit && (
                         <Link
                             to="/recurring-transactions"
-                            className="text-xs text-indigo-600 hover:underline"
+                            className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
                         >
                             View all ({due.length})
                         </Link>
@@ -87,7 +87,7 @@ export function DueRecurringSection({
                             />
                             <label
                                 htmlFor="rt-select-all"
-                                className="cursor-pointer text-xs text-slate-500"
+                                className="cursor-pointer text-xs text-slate-500 dark:text-slate-400"
                             >
                                 Select all
                             </label>
@@ -97,7 +97,7 @@ export function DueRecurringSection({
 
                 {/* Empty state (widget only) */}
                 {due.length === 0 && variant === "widget" && (
-                    <p className="px-4 py-6 text-center text-sm text-slate-500">
+                    <p className="px-4 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
                         All templates are up to date 🎉
                     </p>
                 )}
@@ -123,8 +123,8 @@ export function DueRecurringSection({
                                 className={cn(
                                     "flex h-9 w-9 shrink-0 items-center justify-center rounded-full",
                                     isIncome
-                                        ? "bg-emerald-100 text-emerald-600"
-                                        : "bg-rose-100 text-rose-600",
+                                        ? "bg-emerald-100 text-emerald-600 dark:text-emerald-400"
+                                        : "bg-rose-100 text-rose-600 dark:text-rose-400",
                                 )}
                             >
                                 <Zap className="h-4 w-4" />
@@ -150,7 +150,7 @@ export function DueRecurringSection({
                             <span
                                 className={cn(
                                     "hidden shrink-0 text-sm font-medium tabular-nums sm:block",
-                                    isIncome ? "text-emerald-600" : "text-rose-600",
+                                    isIncome ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400",
                                 )}
                             >
                                 {isIncome ? "+" : "-"}KES{" "}
@@ -163,7 +163,7 @@ export function DueRecurringSection({
                             <Button
                                 size="sm"
                                 variant="outline"
-                                className="shrink-0 border-rose-200 text-rose-700 hover:bg-rose-50"
+                                className="shrink-0 border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-400 hover:bg-rose-50"
                                 onClick={() => openGenerate(t)}
                             >
                                 <Zap className="mr-1 h-3.5 w-3.5" />
@@ -178,7 +178,7 @@ export function DueRecurringSection({
                     <div className="border-t px-4 py-2 text-center">
                         <Link
                             to="/recurring-transactions"
-                            className="text-xs text-indigo-600 hover:underline"
+                            className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
                         >
                             View all {due.length} due →
                         </Link>

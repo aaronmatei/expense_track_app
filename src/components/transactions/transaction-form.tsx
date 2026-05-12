@@ -165,7 +165,7 @@ export function TransactionForm({
                     <SelectContent>
                         {income.length > 0 && (
                             <SelectGroup>
-                                <SelectLabel className="text-emerald-700">Income</SelectLabel>
+                                <SelectLabel className="text-emerald-700 dark:text-emerald-400">Income</SelectLabel>
                                 {income.map((c) => (
                                     <SelectItem key={c.id} value={String(c.id)}>
                                         {c.icon && <CategoryIcon icon={c.icon} className="mr-2 h-4 w-4" />}
@@ -176,7 +176,7 @@ export function TransactionForm({
                         )}
                         {expenses.length > 0 && (
                             <SelectGroup>
-                                <SelectLabel className="text-rose-700">Expense</SelectLabel>
+                                <SelectLabel className="text-rose-700 dark:text-rose-400">Expense</SelectLabel>
                                 {expenses.map((c) => (
                                     <SelectItem key={c.id} value={String(c.id)}>
                                         {c.icon && <CategoryIcon icon={c.icon} className="mr-2 h-4 w-4" />}
@@ -226,7 +226,7 @@ export function TransactionForm({
                     onChange={handleEmployeeChange}
                 />
                 {defaultsApplied && employeeId && (
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
                         Defaults applied where fields were empty
                     </p>
                 )}
@@ -243,7 +243,7 @@ export function TransactionForm({
                 />
             </div>
 
-            {error && <p className="text-sm text-rose-600">{error}</p>}
+            {error && <p className="text-sm text-rose-600 dark:text-rose-400">{error}</p>}
 
             <div className="flex justify-end gap-2 pt-2">
                 <Button type="button" variant="outline" onClick={onCancel}>

@@ -35,8 +35,8 @@ export function RecurringTransactionRow({
                     className={cn(
                         "flex h-9 w-9 shrink-0 items-center justify-center rounded-full",
                         isIncome
-                            ? "bg-emerald-100 text-emerald-600"
-                            : "bg-rose-100 text-rose-600",
+                            ? "bg-emerald-100 text-emerald-600 dark:text-emerald-400"
+                            : "bg-rose-100 text-rose-600 dark:text-rose-400",
                     )}
                 >
                     {isIncome ? (
@@ -49,7 +49,7 @@ export function RecurringTransactionRow({
                 {/* Description + meta */}
                 <div className="min-w-0 flex-1">
                     <p className="truncate font-medium">{template.description}</p>
-                    <p className="truncate text-xs text-slate-500">
+                    <p className="truncate text-xs text-slate-500 dark:text-slate-400">
                         {template.category_name} · {template.account_name}
                     </p>
                 </div>
@@ -71,7 +71,7 @@ export function RecurringTransactionRow({
                 <span
                     className={cn(
                         "hidden shrink-0 text-sm font-semibold tabular-nums md:block",
-                        isIncome ? "text-emerald-600" : "text-rose-600",
+                        isIncome ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400",
                     )}
                 >
                     {amount}
@@ -80,12 +80,12 @@ export function RecurringTransactionRow({
                 {/* Status chips */}
                 <div className="hidden shrink-0 flex-col items-end gap-1 md:flex">
                     {!template.is_active && (
-                        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500">
+                        <span className="rounded-full bg-slate-100 dark:bg-slate-700/50 px-2 py-0.5 text-xs text-slate-500 dark:text-slate-400">
                             Paused
                         </span>
                     )}
                     {template.is_active && template.is_due && (
-                        <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700">
+                        <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700 dark:text-rose-400">
                             Due now
                         </span>
                     )}
@@ -98,7 +98,7 @@ export function RecurringTransactionRow({
                             size="sm"
                             variant="outline"
                             onClick={() => setGenOpen(true)}
-                            className="border-rose-200 text-rose-700 hover:bg-rose-50"
+                            className="border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-400 hover:bg-rose-50"
                             aria-label="Generate"
                         >
                             <Zap className="h-3.5 w-3.5 mr-1" />

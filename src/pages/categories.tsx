@@ -43,7 +43,7 @@ export function CategoriesPage() {
             <div className="flex items-start justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Categories</h1>
-                    <p className="mt-1 text-sm text-slate-600">
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                         Organize your income and expenses into groups
                     </p>
                 </div>
@@ -52,7 +52,7 @@ export function CategoriesPage() {
                 </Button>
             </div>
 
-            {isLoading && <p className="text-sm text-slate-600">Loading…</p>}
+            {isLoading && <p className="text-sm text-slate-600 dark:text-slate-300">Loading…</p>}
             {error && (
                 <p className="text-sm text-red-600">Failed to load categories</p>
             )}
@@ -62,16 +62,16 @@ export function CategoriesPage() {
                     <Card className="border-emerald-100">
                         <CardHeader className="bg-emerald-50/60">
                             <CardTitle className="flex items-center gap-2 text-base">
-                                <TrendingUp className="h-4 w-4 text-emerald-600" />
+                                <TrendingUp className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                                 <span className="text-emerald-900">Income</span>
-                                <span className="ml-auto text-xs font-normal text-emerald-700/70">
+                                <span className="ml-auto text-xs font-normal text-emerald-700 dark:text-emerald-400/70">
                                     {income.length}
                                 </span>
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-2 pt-4">
                             {income.length === 0 ? (
-                                <p className="py-6 text-center text-sm text-slate-500">
+                                <p className="py-6 text-center text-sm text-slate-500 dark:text-slate-400">
                                     No income categories yet
                                 </p>
                             ) : (
@@ -90,16 +90,16 @@ export function CategoriesPage() {
                     <Card className="border-rose-100">
                         <CardHeader className="bg-rose-50/60">
                             <CardTitle className="flex items-center gap-2 text-base">
-                                <TrendingDown className="h-4 w-4 text-rose-600" />
+                                <TrendingDown className="h-4 w-4 text-rose-600 dark:text-rose-400" />
                                 <span className="text-rose-900">Expenses</span>
-                                <span className="ml-auto text-xs font-normal text-rose-700/70">
+                                <span className="ml-auto text-xs font-normal text-rose-700 dark:text-rose-400/70">
                                     {expenses.length}
                                 </span>
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-2 pt-4">
                             {expenses.length === 0 ? (
-                                <p className="py-6 text-center text-sm text-slate-500">
+                                <p className="py-6 text-center text-sm text-slate-500 dark:text-slate-400">
                                     No expense categories yet
                                 </p>
                             ) : (

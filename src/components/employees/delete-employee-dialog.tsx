@@ -41,7 +41,7 @@ export function DeleteEmployeeDialog({
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 {deleteMutation.isError && (
-                    <p className="text-sm text-rose-600">
+                    <p className="text-sm text-rose-600 dark:text-rose-400">
                         {getErrorMessage(deleteMutation.error)}
                     </p>
                 )}

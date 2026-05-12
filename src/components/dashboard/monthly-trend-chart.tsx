@@ -54,15 +54,15 @@ function buildLast6(
 function ChartTooltip({ active, payload, label }: any) {
     if (!active || !payload?.length) return null
     return (
-        <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-md">
-            <p className="mb-2 text-xs font-semibold text-slate-700">{label}</p>
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-3 shadow-md">
+            <p className="mb-2 text-xs font-semibold text-slate-700 dark:text-slate-300">{label}</p>
             {payload.map((entry: any) => (
                 <div key={entry.dataKey} className="flex items-center gap-3 text-xs">
                     <span
                         className="h-2 w-2 shrink-0 rounded-full"
                         style={{ backgroundColor: entry.fill }}
                     />
-                    <span className="capitalize text-slate-600">{entry.dataKey}</span>
+                    <span className="capitalize text-slate-600 dark:text-slate-300">{entry.dataKey}</span>
                     <span className="ml-auto font-semibold tabular-nums">
                         {formatCurrency(entry.value)}
                     </span>
@@ -93,16 +93,16 @@ export function MonthlyTrendChart() {
             <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
                     <CardTitle className="text-base">Income vs expenses</CardTitle>
-                    <span className="text-xs text-slate-500">Last 6 months</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">Last 6 months</span>
                 </div>
             </CardHeader>
             <CardContent>
                 {isLoading && (
-                    <div className="h-[280px] animate-pulse rounded-lg bg-slate-100" />
+                    <div className="h-[280px] animate-pulse rounded-lg bg-slate-100 dark:bg-slate-700/50" />
                 )}
                 {!isLoading && isEmpty && (
                     <div className="flex h-[280px] items-center justify-center">
-                        <p className="text-sm text-slate-500">No data yet</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">No data yet</p>
                     </div>
                 )}
                 {!isLoading && !isEmpty && (

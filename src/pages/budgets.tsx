@@ -60,7 +60,7 @@ export function BudgetsPage() {
             <div className="flex items-start justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Budgets</h1>
-                    <p className="mt-1 text-sm text-slate-600">
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                         Manage your spending limits
                     </p>
                 </div>
@@ -78,7 +78,7 @@ export function BudgetsPage() {
             <div className="grid gap-4 sm:grid-cols-3">
                 <Card>
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium text-slate-600">
+                        <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-300">
                             Total budget
                         </CardTitle>
                     </CardHeader>
@@ -86,7 +86,7 @@ export function BudgetsPage() {
                         <p className="text-3xl font-bold tracking-tight tabular-nums">
                             {fmt.format(totalBudget)}
                         </p>
-                        <p className="mt-1 text-xs text-slate-500">
+                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                             {items.length} {items.length === 1 ? "budget" : "budgets"} active
                         </p>
                     </CardContent>
@@ -94,7 +94,7 @@ export function BudgetsPage() {
 
                 <Card>
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium text-slate-600">
+                        <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-300">
                             Total spent
                         </CardTitle>
                     </CardHeader>
@@ -102,7 +102,7 @@ export function BudgetsPage() {
                         <p className="text-3xl font-bold tracking-tight tabular-nums">
                             {fmt.format(totalSpent)}
                         </p>
-                        <p className="mt-1 text-xs text-slate-500">
+                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                             {fmt.format(totalRemaining)} remaining · {overallPct}% used
                         </p>
                     </CardContent>
@@ -110,7 +110,7 @@ export function BudgetsPage() {
 
                 <Card>
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium text-slate-600">
+                        <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-300">
                             Budget health
                         </CardTitle>
                     </CardHeader>
@@ -118,20 +118,20 @@ export function BudgetsPage() {
                         <p
                             className={cn(
                                 "text-3xl font-bold tracking-tight",
-                                overCount === 0 ? "text-emerald-600" : "text-rose-600",
+                                overCount === 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400",
                             )}
                         >
                             {overCount === 0 ? "On track" : `${overCount} over`}
                         </p>
-                        <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+                        <p className="mt-1 flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
                             {overCount === 0 ? (
                                 <>
-                                    <TrendingUp className="h-3 w-3 text-emerald-600" />
+                                    <TrendingUp className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
                                     All budgets within limits
                                 </>
                             ) : (
                                 <>
-                                    <TrendingDown className="h-3 w-3 text-rose-600" />
+                                    <TrendingDown className="h-3 w-3 text-rose-600 dark:text-rose-400" />
                                     {overCount}{" "}
                                     {overCount === 1 ? "budget" : "budgets"} exceeded
                                 </>
@@ -142,7 +142,7 @@ export function BudgetsPage() {
             </div>
 
             {summary.isLoading && (
-                <p className="text-sm text-slate-600">Loading…</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Loading…</p>
             )}
             {summary.error && (
                 <p className="text-sm text-red-600">Failed to load budgets</p>
@@ -151,7 +151,7 @@ export function BudgetsPage() {
             {summary.data && items.length === 0 && (
                 <Card>
                     <CardContent className="flex flex-col items-center gap-3 py-16">
-                        <p className="text-sm text-slate-600">
+                        <p className="text-sm text-slate-600 dark:text-slate-300">
                             No budgets set for this month
                         </p>
                         <Button onClick={handleCreate} variant="outline">

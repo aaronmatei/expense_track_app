@@ -22,15 +22,15 @@ function ChartTooltip({ active, payload }: any) {
     if (!active || !payload?.length) return null
     const { name, value, payload: p } = payload[0]
     return (
-        <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-md">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-3 shadow-md">
             <div className="flex items-center gap-2 text-xs">
                 <span
                     className="h-2 w-2 shrink-0 rounded-full"
                     style={{ backgroundColor: p.color }}
                 />
-                <span className="font-medium text-slate-700">{name}</span>
+                <span className="font-medium text-slate-700 dark:text-slate-300">{name}</span>
             </div>
-            <p className="mt-1 text-sm font-bold tabular-nums text-slate-900">
+            <p className="mt-1 text-sm font-bold tabular-nums text-slate-900 dark:text-slate-100">
                 {formatCurrency(value)}
             </p>
         </div>
@@ -76,19 +76,19 @@ export function CategoryBreakdownChart() {
             <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
                     <CardTitle className="text-base">Spending by category</CardTitle>
-                    <span className="text-xs text-slate-500">This month</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">This month</span>
                 </div>
             </CardHeader>
             <CardContent>
                 {summary.isLoading && (
-                    <div className="h-[280px] animate-pulse rounded-lg bg-slate-100" />
+                    <div className="h-[280px] animate-pulse rounded-lg bg-slate-100 dark:bg-slate-700/50" />
                 )}
                 {!summary.isLoading && isEmpty && (
                     <div className="flex h-[280px] flex-col items-center justify-center gap-3">
-                        <p className="text-sm text-slate-500">No expenses this month yet</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">No expenses this month yet</p>
                         <Link
                             to="/transactions"
-                            className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-50"
+                            className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-50"
                         >
                             <Plus className="h-3.5 w-3.5" />
                             Add transaction
@@ -117,7 +117,7 @@ export function CategoryBreakdownChart() {
                                 </PieChart>
                             </ResponsiveContainer>
                             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-                                <p className="text-lg font-bold tabular-nums text-slate-900">
+                                <p className="text-lg font-bold tabular-nums text-slate-900 dark:text-slate-100">
                                     {formatCurrency(total)}
                                 </p>
                                 <p className="text-xs text-slate-400">This month</p>
@@ -130,10 +130,10 @@ export function CategoryBreakdownChart() {
                                         className="h-2.5 w-2.5 shrink-0 rounded-full"
                                         style={{ backgroundColor: s.color }}
                                     />
-                                    <span className="min-w-0 flex-1 truncate text-xs text-slate-600">
+                                    <span className="min-w-0 flex-1 truncate text-xs text-slate-600 dark:text-slate-300">
                                         {s.name}
                                     </span>
-                                    <span className="shrink-0 text-xs font-medium tabular-nums text-slate-900">
+                                    <span className="shrink-0 text-xs font-medium tabular-nums text-slate-900 dark:text-slate-100">
                                         {formatCurrency(s.value)}
                                     </span>
                                 </div>

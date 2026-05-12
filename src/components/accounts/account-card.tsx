@@ -45,7 +45,7 @@ export function AccountCard({ account, onEdit, onDelete }: AccountCardProps) {
                         <div>
                             <p className="font-semibold">{account.name}</p>
                             {account.institution && (
-                                <p className="text-xs text-slate-500">{account.institution}</p>
+                                <p className="text-xs text-slate-500 dark:text-slate-400">{account.institution}</p>
                             )}
                         </div>
                     </div>
@@ -70,21 +70,21 @@ export function AccountCard({ account, onEdit, onDelete }: AccountCardProps) {
                 </div>
 
                 <div className="mt-4">
-                    <p className="text-xs text-slate-500">Current balance</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Current balance</p>
                     <p
                         className={cn(
                             "text-2xl font-bold tracking-tight tabular-nums",
-                            isNegative ? "text-rose-600" : "text-slate-900",
+                            isNegative ? "text-rose-600 dark:text-rose-400" : "text-slate-900 dark:text-slate-100",
                         )}
                     >
                         {formatCurrency(account.current_balance, account.currency)}
                     </p>
                 </div>
 
-                <div className="mt-4 flex items-center justify-between text-xs text-slate-500">
+                <div className="mt-4 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                     <span>{meta.label}</span>
                     {!account.include_in_total && (
-                        <span className="rounded-full bg-slate-100 px-2 py-0.5">
+                        <span className="rounded-full bg-slate-100 dark:bg-slate-700/50 px-2 py-0.5">
                             Excluded from total
                         </span>
                     )}

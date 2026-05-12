@@ -8,9 +8,9 @@ import { useCategories } from "@/hooks/use-categories"
 import { formatCurrency, getCurrentYearMonth } from "@/lib/format"
 
 function indicatorColor(pct: number): string {
-    if (pct > 100) return "bg-rose-500"
-    if (pct >= 80) return "bg-amber-500"
-    return "bg-emerald-500"
+    if (pct > 100) return "bg-rose-50 dark:bg-rose-950/300"
+    if (pct >= 80) return "bg-amber-50 dark:bg-amber-950/300"
+    return "bg-emerald-50 dark:bg-emerald-950/300"
 }
 
 export function BudgetOverview() {
@@ -34,21 +34,21 @@ export function BudgetOverview() {
                 <CardTitle className="text-base">Budgets this month</CardTitle>
                 <Link
                     to="/budgets"
-                    className="text-xs text-indigo-600 hover:underline"
+                    className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
                 >
                     Manage
                 </Link>
             </CardHeader>
             <CardContent>
                 {summary.isLoading && (
-                    <p className="text-sm text-slate-600">Loading…</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">Loading…</p>
                 )}
                 {summary.data && summary.data.length === 0 && (
                     <div className="py-6 text-center">
-                        <p className="text-sm text-slate-500">No budgets set yet</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">No budgets set yet</p>
                         <Link
                             to="/budgets"
-                            className="mt-2 inline-block text-xs text-indigo-600 hover:underline"
+                            className="mt-2 inline-block text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
                         >
                             Set up a budget
                         </Link>
@@ -73,7 +73,7 @@ export function BudgetOverview() {
                                         <span className="min-w-0 flex-1 truncate text-sm font-medium">
                                             {b.category_name}
                                         </span>
-                                        <span className="shrink-0 text-xs tabular-nums text-slate-600">
+                                        <span className="shrink-0 text-xs tabular-nums text-slate-600 dark:text-slate-300">
                                             {formatCurrency(b.spent)} /{" "}
                                             {formatCurrency(b.amount)}
                                         </span>

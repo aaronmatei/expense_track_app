@@ -46,7 +46,7 @@ export function EmployeeRow({
                 <div className="min-w-0 flex-1">
                     <p className="truncate font-medium">{employee.full_name}</p>
                     {employee.position && (
-                        <p className="truncate text-xs text-slate-500">
+                        <p className="truncate text-xs text-slate-500 dark:text-slate-400">
                             {employee.position}
                         </p>
                     )}
@@ -63,7 +63,7 @@ export function EmployeeRow({
                             KES {Number(employee.pay_amount).toLocaleString()}
                         </span>
                     ) : (
-                        <span className="text-sm italic text-slate-500">N/A</span>
+                        <span className="text-sm italic text-slate-500 dark:text-slate-400">N/A</span>
                     )}
                 </div>
 
@@ -73,14 +73,14 @@ export function EmployeeRow({
                         className={cn(
                             "rounded-full px-2 py-0.5 text-xs font-medium",
                             employee.is_active
-                                ? "bg-emerald-100 text-emerald-700"
-                                : "bg-slate-100 text-slate-500",
+                                ? "bg-emerald-100 text-emerald-700 dark:text-emerald-400"
+                                : "bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400",
                         )}
                     >
                         {employee.is_active ? "Active" : "Inactive"}
                     </span>
                     {employee.is_active && employee.is_due_for_pay && (
-                        <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700">
+                        <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700 dark:text-rose-400">
                             Due now
                         </span>
                     )}
@@ -96,7 +96,7 @@ export function EmployeeRow({
                             size="sm"
                             variant="outline"
                             onClick={() => setPayOpen(true)}
-                            className="border-rose-200 text-rose-700 hover:bg-rose-50"
+                            className="border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-400 hover:bg-rose-50"
                             aria-label="Mark paid"
                         >
                             <DollarSign className="h-4 w-4" />

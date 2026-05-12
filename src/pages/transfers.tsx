@@ -24,7 +24,7 @@ const EMPTY_FILTERS: TransferFilters = {}
 
 export function TransfersPage() {
     const [filters, setFilters] = useState<TransferFilters>(EMPTY_FILTERS)
-    const [accountFilter, setAccountFilter] = useState("")
+    const [accountFilter, setAccountFilter] = useState("all")
 
     const [dialogOpen, setDialogOpen] = useState(false)
     const [editing, setEditing] = useState<Transfer | undefined>(undefined)
@@ -33,7 +33,7 @@ export function TransfersPage() {
     const apiFilters: TransferFilters = {
         start_date: filters.start_date || undefined,
         end_date: filters.end_date || undefined,
-        account_id: accountFilter ? Number(accountFilter) : undefined,
+        account_id: accountFilter !== "all" ? Number(accountFilter) : undefined,
     }
 
     const transfersQuery = useTransfers(apiFilters)
@@ -42,7 +42,7 @@ export function TransfersPage() {
     const { data: accounts = [] } = useAccounts()
 
     const hasActiveFilters =
-        !!filters.start_date || !!filters.end_date || !!accountFilter
+        !!filters.start_date || !!filters.end_date || accountFilter !== "all"
 
     function handleCreate() {
         setEditing(undefined)
@@ -61,7 +61,7 @@ export function TransfersPage() {
 
     function handleClearFilters() {
         setFilters(EMPTY_FILTERS)
-        setAccountFilter("")
+        setAccountFilter("all")
     }
 
     const totalTransferred = transfers.reduce(
@@ -75,7 +75,7 @@ export function TransfersPage() {
             <div className="flex items-start justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Transfers</h1>
-                    <p className="mt-1 text-sm text-slate-600">
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                         Move money between your accounts
                     </p>
                 </div>
@@ -86,9 +86,9 @@ export function TransfersPage() {
             </div>
 
             {/* Filter bar */}
-            <div className="flex flex-wrap items-end gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3">
+            <div className="flex flex-wrap items-end gap-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
                 <div className="space-y-1">
-                    <Label className="text-xs text-slate-500">From date</Label>
+                    <Label className="text-xs text-slate-500 dark:text-slate-400">From date</Label>
                     <Input
                         type="date"
                         className="h-8 w-36 text-sm"
@@ -99,7 +99,7 @@ export function TransfersPage() {
                     />
                 </div>
                 <div className="space-y-1">
-                    <Label className="text-xs text-slate-500">To date</Label>
+                    <Label className="text-xs text-slate-500 dark:text-slate-400">To date</Label>
                     <Input
                         type="date"
                         className="h-8 w-36 text-sm"
@@ -110,7 +110,7 @@ export function TransfersPage() {
                     />
                 </div>
                 <div className="space-y-1">
-                    <Label className="text-xs text-slate-500">Account</Label>
+                    <Label className="text-xs text-slate-500 dark:text-slate-400">Account</Label>
                     <Select
                         value={accountFilter}
                         onValueChange={setAccountFilter}
@@ -119,7 +119,7 @@ export function TransfersPage() {
                             <SelectValue placeholder="All accounts" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="">All accounts</SelectItem>
+                            <SelectItem value="all">All accounts</SelectItem>
                             {accounts.map((a) => (
                                 <SelectItem key={a.id} value={String(a.id)}>
                                     {a.name}
@@ -132,7 +132,7 @@ export function TransfersPage() {
                     <Button
                         variant="ghost"
                         size="sm"
-                        className="h-8 text-slate-500"
+                        className="h-8 text-slate-500 dark:text-slate-400"
                         onClick={handleClearFilters}
                     >
                         Clear
@@ -142,14 +142,14 @@ export function TransfersPage() {
 
             {/* Summary strip */}
             {transfers.length > 0 && (
-                <div className="flex items-center gap-6 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm">
-                    <span className="text-slate-500">
+                <div className="flex items-center gap-6 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm">
+                    <span className="text-slate-500 dark:text-slate-400">
                         {transfers.length}{" "}
                         {transfers.length === 1 ? "transfer" : "transfers"}
                     </span>
-                    <span className="text-slate-500">
+                    <span className="text-slate-500 dark:text-slate-400">
                         Total transferred:{" "}
-                        <span className="font-semibold tabular-nums text-slate-700">
+                        <span className="font-semibold tabular-nums text-slate-700 dark:text-slate-300">
                             {formatCurrency(totalTransferred)}
                         </span>
                     </span>
@@ -158,7 +158,7 @@ export function TransfersPage() {
 
             {/* Loading / error */}
             {transfersQuery.isLoading && (
-                <p className="text-sm text-slate-600">Loading…</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Loading…</p>
             )}
             {transfersQuery.isError && (
                 <p className="text-sm text-red-600">Failed to load transfers</p>
@@ -168,7 +168,7 @@ export function TransfersPage() {
             {!transfersQuery.isLoading && transfers.length === 0 && (
                 <Card>
                     <CardContent className="flex flex-col items-center gap-3 py-16">
-                        <p className="text-sm text-slate-600">
+                        <p className="text-sm text-slate-600 dark:text-slate-300">
                             {hasActiveFilters
                                 ? "No transfers match these filters"
                                 : "No transfers yet. Move money between your accounts to track them."}

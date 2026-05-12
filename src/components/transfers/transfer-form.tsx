@@ -168,7 +168,7 @@ export function TransferForm({
                         </SelectContent>
                     </Select>
                     {fromAccount && (
-                        <p className="text-xs text-slate-500">
+                        <p className="text-xs text-slate-500 dark:text-slate-400">
                             Showing only {fromAccount.currency} accounts (matching the
                             source account's currency)
                         </p>
@@ -180,7 +180,7 @@ export function TransferForm({
             <div className="space-y-2">
                 <Label htmlFor="amount">Amount</Label>
                 <div className="relative">
-                    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-500">
+                    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-500 dark:text-slate-400">
                         {fromAccount?.currency ?? "KES"}
                     </span>
                     <Input
@@ -196,7 +196,7 @@ export function TransferForm({
                     />
                 </div>
                 {showOverdrawWarning && projectedBalance !== null && (
-                    <p className="text-xs text-amber-600">
+                    <p className="text-xs text-amber-600 dark:text-amber-400">
                         ⚠ This would push {fromAccount!.name} to{" "}
                         {fromAccount!.currency}{" "}
                         {projectedBalance.toLocaleString(undefined, {

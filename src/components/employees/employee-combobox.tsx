@@ -106,7 +106,7 @@ export function EmployeeCombobox({
                                             onChange(null, null)
                                             setOpen(false)
                                         }}
-                                        className="text-slate-500 italic"
+                                        className="text-slate-500 dark:text-slate-400 italic"
                                     >
                                         All employees
                                     </CommandItem>
@@ -124,7 +124,7 @@ export function EmployeeCombobox({
                                 >
                                     <span className="flex flex-col">
                                         <span>{employee.full_name}</span>
-                                        <span className="text-xs text-slate-500">
+                                        <span className="text-xs text-slate-500 dark:text-slate-400">
                                             {employee.position ?? "—"}
                                         </span>
                                     </span>

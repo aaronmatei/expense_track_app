@@ -87,7 +87,7 @@ export function CategoryMultiSelect({
                     <CommandList>
                         <CommandEmpty>No categories found.</CommandEmpty>
                         {income.length > 0 && (
-                            <CommandGroup heading={<span className="text-emerald-700">Income</span>}>
+                            <CommandGroup heading={<span className="text-emerald-700 dark:text-emerald-400">Income</span>}>
                                 {income.map((c) => (
                                     <CommandItem
                                         key={c.id}
@@ -96,7 +96,7 @@ export function CategoryMultiSelect({
                                     >
                                         <Check
                                             className={cn(
-                                                "mr-2 h-4 w-4 text-indigo-600",
+                                                "mr-2 h-4 w-4 text-indigo-600 dark:text-indigo-400",
                                                 selectedIds.includes(c.id) ? "opacity-100" : "opacity-0",
                                             )}
                                         />
@@ -107,7 +107,7 @@ export function CategoryMultiSelect({
                             </CommandGroup>
                         )}
                         {expenses.length > 0 && (
-                            <CommandGroup heading={<span className="text-rose-700">Expense</span>}>
+                            <CommandGroup heading={<span className="text-rose-700 dark:text-rose-400">Expense</span>}>
                                 {expenses.map((c) => (
                                     <CommandItem
                                         key={c.id}
@@ -116,7 +116,7 @@ export function CategoryMultiSelect({
                                     >
                                         <Check
                                             className={cn(
-                                                "mr-2 h-4 w-4 text-indigo-600",
+                                                "mr-2 h-4 w-4 text-indigo-600 dark:text-indigo-400",
                                                 selectedIds.includes(c.id) ? "opacity-100" : "opacity-0",
                                             )}
                                         />
@@ -132,7 +132,7 @@ export function CategoryMultiSelect({
                                 <CommandGroup>
                                     <CommandItem
                                         onSelect={() => onChange([])}
-                                        className="italic text-slate-500"
+                                        className="italic text-slate-500 dark:text-slate-400"
                                     >
                                         Clear selection
                                     </CommandItem>

@@ -13,13 +13,13 @@ export function PlaceholderPage({ title, description }: PlaceholderPageProps) {
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
                 {description && (
-                    <p className="mt-1 text-sm text-slate-600">{description}</p>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{description}</p>
                 )}
             </div>
             <Card>
                 <CardContent className="flex flex-col items-center justify-center gap-3 py-20">
                     <Construction className="h-10 w-10 text-slate-400" />
-                    <p className="text-sm text-slate-600">Coming soon</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">Coming soon</p>
                 </CardContent>
             </Card>
         </div>

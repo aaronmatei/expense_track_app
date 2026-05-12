@@ -87,7 +87,7 @@ export function BudgetForm({
                     <SelectContent>
                         {income.length > 0 && (
                             <SelectGroup>
-                                <SelectLabel className="text-emerald-700">Income</SelectLabel>
+                                <SelectLabel className="text-emerald-700 dark:text-emerald-400">Income</SelectLabel>
                                 {income.map((c) => (
                                     <SelectItem key={c.id} value={String(c.id)}>
                                         {c.icon && <span className="mr-2">{c.icon}</span>}
@@ -98,7 +98,7 @@ export function BudgetForm({
                         )}
                         {expenses.length > 0 && (
                             <SelectGroup>
-                                <SelectLabel className="text-rose-700">Expense</SelectLabel>
+                                <SelectLabel className="text-rose-700 dark:text-rose-400">Expense</SelectLabel>
                                 {expenses.map((c) => (
                                     <SelectItem key={c.id} value={String(c.id)}>
                                         {c.icon && <span className="mr-2">{c.icon}</span>}
@@ -110,7 +110,7 @@ export function BudgetForm({
                     </SelectContent>
                 </Select>
                 {budget && (
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
                         Category cannot be changed after creation.
                     </p>
                 )}

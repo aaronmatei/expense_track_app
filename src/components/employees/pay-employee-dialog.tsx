@@ -104,7 +104,7 @@ export function PayEmployeeDialog({
                 <DialogHeader>
                     <DialogTitle>Pay {employee.full_name}</DialogTitle>
                     <DialogDescription asChild>
-                        <div className="flex flex-col gap-1 text-sm text-slate-500">
+                        <div className="flex flex-col gap-1 text-sm text-slate-500 dark:text-slate-400">
                             {employee.position && (
                                 <span>{employee.position}</span>
                             )}
@@ -118,7 +118,7 @@ export function PayEmployeeDialog({
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {payMutation.isError && (
-                        <p className="rounded-md bg-rose-50 px-3 py-2 text-sm text-rose-700">
+                        <p className="rounded-md bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-sm text-rose-700 dark:text-rose-400">
                             {getErrorMessage(payMutation.error)}
                         </p>
                     )}
@@ -135,7 +135,7 @@ export function PayEmployeeDialog({
                                 onChange={(e) => setAmount(e.target.value)}
                             />
                             {submitted && !amount && (
-                                <p className="text-xs text-amber-600">Amount is required.</p>
+                                <p className="text-xs text-amber-600 dark:text-amber-400">Amount is required.</p>
                             )}
                         </div>
                         <div className="space-y-2">

@@ -42,18 +42,18 @@ export function DeleteTransferDialog({
                 </AlertDialogHeader>
 
                 {transfer && (
-                    <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm">
-                        <span className="font-medium text-slate-900">
+                    <div className="flex items-center gap-2 rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 px-4 py-3 text-sm">
+                        <span className="font-medium text-slate-900 dark:text-slate-100">
                             {transfer.from_account_name}
                         </span>
                         <ArrowRight className="h-4 w-4 shrink-0 text-slate-400" />
-                        <span className="font-medium text-slate-900">
+                        <span className="font-medium text-slate-900 dark:text-slate-100">
                             {transfer.to_account_name}
                         </span>
-                        <span className="ml-auto tabular-nums text-slate-700">
+                        <span className="ml-auto tabular-nums text-slate-700 dark:text-slate-300">
                             {formatCurrency(parseFloat(transfer.amount))}
                         </span>
-                        <span className="text-slate-500">
+                        <span className="text-slate-500 dark:text-slate-400">
                             · {formatShortDate(transfer.transfer_date)}
                         </span>
                     </div>

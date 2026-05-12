@@ -82,7 +82,7 @@ export function EmployeesPage() {
                     <h1 className="text-3xl font-bold tracking-tight">
                         Employees
                     </h1>
-                    <p className="mt-1 text-sm text-slate-600">
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                         Manage your employees and payroll
                     </p>
                 </div>
@@ -121,7 +121,7 @@ export function EmployeesPage() {
 
             {/* List */}
             {employees.isLoading && (
-                <p className="text-sm text-slate-600">Loading…</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Loading…</p>
             )}
             {employees.error && (
                 <p className="text-sm text-red-600">Failed to load employees</p>
@@ -130,7 +130,7 @@ export function EmployeesPage() {
             {employees.data && employees.data.length === 0 && (
                 <div className="rounded-lg border">
                     <div className="flex flex-col items-center gap-3 py-16">
-                        <p className="text-sm text-slate-600">
+                        <p className="text-sm text-slate-600 dark:text-slate-300">
                             {search || statusFilter !== "all"
                                 ? "No employees match your filters"
                                 : "No employees yet. Add your first to get started."}

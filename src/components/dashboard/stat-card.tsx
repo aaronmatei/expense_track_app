@@ -35,17 +35,17 @@ export function StatCard({
                         <Icon className={cn("h-5 w-5", iconColor)} />
                     </div>
                     <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-slate-600">{title}</p>
+                        <p className="text-sm font-medium text-slate-600 dark:text-slate-300">{title}</p>
                         <p
                             className={cn(
                                 "mt-1 text-2xl font-bold tracking-tight tabular-nums",
-                                valueClassName ?? "text-slate-900",
+                                valueClassName ?? "text-slate-900 dark:text-slate-100",
                             )}
                         >
                             {value}
                         </p>
                         {caption && (
-                            <p className="mt-1 text-xs text-slate-500">{caption}</p>
+                            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{caption}</p>
                         )}
                     </div>
                 </div>

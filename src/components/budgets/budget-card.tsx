@@ -30,10 +30,10 @@ export function BudgetCard({ budget, onEdit, onDelete }: BudgetCardProps) {
     const barValue = Math.min(pct, 100)
     const indicatorColor =
         pct > 100
-            ? "bg-rose-500"
+            ? "bg-rose-50 dark:bg-rose-950/300"
             : pct >= 80
-              ? "bg-amber-500"
-              : "bg-emerald-500"
+              ? "bg-amber-50 dark:bg-amber-950/300"
+              : "bg-emerald-50 dark:bg-emerald-950/300"
 
     return (
         <Card className="group">
@@ -50,14 +50,14 @@ export function BudgetCard({ budget, onEdit, onDelete }: BudgetCardProps) {
                             <p className="truncate font-semibold">
                                 {budget.category_name}
                             </p>
-                            <p className="text-xs text-slate-500">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">
                                 {PERIOD_LABELS[budget.period]}
                             </p>
                         </div>
                     </div>
 
                     <div className="flex shrink-0 items-center gap-1">
-                        <p className="text-sm font-medium tabular-nums text-slate-700">
+                        <p className="text-sm font-medium tabular-nums text-slate-700 dark:text-slate-300">
                             <span>{fmt.format(Number(budget.spent))}</span>
                             <span className="text-slate-400"> / </span>
                             <span>{fmt.format(Number(budget.amount))}</span>
@@ -92,13 +92,13 @@ export function BudgetCard({ budget, onEdit, onDelete }: BudgetCardProps) {
                 </div>
 
                 <div className="mt-2 flex items-center justify-between text-xs">
-                    <span className="text-slate-500">{Math.round(pct)}% used</span>
+                    <span className="text-slate-500 dark:text-slate-400">{Math.round(pct)}% used</span>
                     <span
                         className={cn(
                             "font-medium tabular-nums",
                             budget.is_over_budget
-                                ? "text-rose-600"
-                                : "text-slate-600",
+                                ? "text-rose-600 dark:text-rose-400"
+                                : "text-slate-600 dark:text-slate-300",
                         )}
                     >
                         {budget.is_over_budget

@@ -126,14 +126,14 @@ export function BulkPayDialog({
                 {result && (
                     <div className="space-y-3">
                         {result.successful.length > 0 && (
-                            <div className="rounded-md bg-emerald-50 px-4 py-3">
-                                <p className="text-sm font-medium text-emerald-800">
+                            <div className="rounded-md bg-emerald-50 dark:bg-emerald-950/30 px-4 py-3">
+                                <p className="text-sm font-medium text-emerald-800 dark:text-emerald-300">
                                     Successfully paid {result.successful.length}{" "}
                                     {result.successful.length === 1
                                         ? "employee"
                                         : "employees"}
                                 </p>
-                                <p className="mt-0.5 text-xs text-emerald-700">
+                                <p className="mt-0.5 text-xs text-emerald-700 dark:text-emerald-400">
                                     {result.successful
                                         .map((tx) => {
                                             const emp = employeeMap.get(tx.employee_id ?? -1)
@@ -144,11 +144,11 @@ export function BulkPayDialog({
                             </div>
                         )}
                         {result.failed.length > 0 && (
-                            <div className="rounded-md bg-rose-50 px-4 py-3">
-                                <p className="text-sm font-medium text-rose-800">
+                            <div className="rounded-md bg-rose-50 dark:bg-rose-950/30 px-4 py-3">
+                                <p className="text-sm font-medium text-rose-800 dark:text-rose-300">
                                     Failed: {result.failed.length}
                                 </p>
-                                <ul className="mt-1 space-y-0.5 text-xs text-rose-700">
+                                <ul className="mt-1 space-y-0.5 text-xs text-rose-700 dark:text-rose-400">
                                     {result.failed.map((f: BulkPayError) => (
                                         <li key={f.employee_id}>
                                             <span className="font-medium">
@@ -170,7 +170,7 @@ export function BulkPayDialog({
                 {!result && (
                     <>
                         {payBulkMutation.isError && (
-                            <p className="rounded-md bg-rose-50 px-3 py-2 text-sm text-rose-700">
+                            <p className="rounded-md bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-sm text-rose-700 dark:text-rose-400">
                                 {getErrorMessage(payBulkMutation.error)}
                             </p>
                         )}
@@ -205,7 +205,7 @@ export function BulkPayDialog({
                         {/* Per-employee rows */}
                         <div className="max-h-64 overflow-y-auto rounded-md border">
                             <table className="w-full text-sm">
-                                <thead className="border-b bg-slate-50 text-xs text-slate-500">
+                                <thead className="border-b bg-slate-50 dark:bg-slate-800/50 text-xs text-slate-500 dark:text-slate-400">
                                     <tr>
                                         <th className="px-3 py-2 text-left">
                                             Employee
@@ -224,7 +224,7 @@ export function BulkPayDialog({
                                         const emp = employeeMap.get(row.employeeId)
                                         if (!emp) return null
                                         return (
-                                            <tr key={row.employeeId} className={!row.amount ? "bg-amber-50" : undefined}>
+                                            <tr key={row.employeeId} className={!row.amount ? "bg-amber-50 dark:bg-amber-950/30" : undefined}>
                                                 <td className="px-3 py-2">
                                                     <p className="font-medium">
                                                         {emp.full_name}
@@ -299,7 +299,7 @@ export function BulkPayDialog({
                         {/* Footer */}
                         <div className="flex items-center justify-between border-t pt-4">
                             <div>
-                                <p className="text-xs text-slate-500">Total</p>
+                                <p className="text-xs text-slate-500 dark:text-slate-400">Total</p>
                                 <p className="text-lg font-bold tabular-nums">
                                     KES {total.toLocaleString(undefined, {
                                         minimumFractionDigits: 2,

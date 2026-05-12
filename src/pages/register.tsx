@@ -42,7 +42,7 @@ export const RegisterPage = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-800/50 p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Create your account</CardTitle>
@@ -81,7 +81,7 @@ export const RegisterPage = () => {
                 minLength={8}
                 required
               />
-              <p className="text-xs text-slate-500">At least 8 characters</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">At least 8 characters</p>
             </div>
             {mutation.isError && (
               <p className="text-sm text-red-600">
@@ -95,11 +95,11 @@ export const RegisterPage = () => {
             >
               {mutation.isPending ? "Creating account…" : "Create account"}
             </Button>
-            <p className="text-center text-sm text-slate-600">
+            <p className="text-center text-sm text-slate-600 dark:text-slate-300">
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="font-medium text-slate-900 hover:underline"
+                className="font-medium text-slate-900 dark:text-slate-100 hover:underline"
               >
                 Sign in
               </Link>

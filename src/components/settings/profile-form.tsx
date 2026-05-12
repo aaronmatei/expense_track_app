@@ -58,7 +58,7 @@ export function ProfileForm() {
                     id="email"
                     value={me.data?.email ?? ""}
                     disabled
-                    className="bg-slate-50 text-slate-500"
+                    className="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400"
                 />
             </div>
 
@@ -103,7 +103,7 @@ export function ProfileForm() {
             </div>
 
             {updateMe.isError && (
-                <p className="text-sm text-rose-600">
+                <p className="text-sm text-rose-600 dark:text-rose-400">
                     {getErrorMessage(updateMe.error)}
                 </p>
             )}
@@ -113,7 +113,7 @@ export function ProfileForm() {
                     {updateMe.isPending ? "Saving…" : "Save changes"}
                 </Button>
                 {saved && (
-                    <span className="flex items-center gap-1 text-sm text-emerald-600">
+                    <span className="flex items-center gap-1 text-sm text-emerald-600 dark:text-emerald-400">
                         <Check className="h-4 w-4" />
                         Saved
                     </span>
