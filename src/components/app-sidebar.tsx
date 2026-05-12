@@ -1,4 +1,5 @@
 import {
+    ArrowLeftRight,
     LayoutDashboard,
     Receipt,
     Tag,
@@ -17,6 +18,7 @@ import { cn } from "@/lib/utils"
 const navItems = [
     { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { to: "/transactions", label: "Transactions", icon: Receipt },
+    { to: "/transfers", label: "Transfers", icon: ArrowLeftRight },
     { to: "/categories", label: "Categories", icon: Tag },
     { to: "/budgets", label: "Budgets", icon: Wallet },
     { to: "/accounts", label: "Accounts", icon: Landmark },

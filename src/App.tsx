@@ -12,6 +12,7 @@ import { LoginPage } from "@/pages/login"
 import { RegisterPage } from "@/pages/register"
 import { SettingsPage } from "@/pages/settings"
 import { TransactionsPage } from "@/pages/transactions"
+import { TransfersPage } from "@/pages/transfers"
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route element={<AppLayout />}>
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/transactions" element={<TransactionsPage />} />
+              <Route path="/transfers" element={<TransfersPage />} />
               <Route path="/categories" element={<CategoriesPage />} />
               <Route path="/budgets" element={<BudgetsPage />} />
               <Route path="/accounts" element={<AccountsPage />} />
