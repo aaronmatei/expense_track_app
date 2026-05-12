@@ -46,9 +46,23 @@ interface Props {
     onChange: (v: PayDayConfig) => void
 }
 
+function isValidConfigForFrequency(freq: PayFrequency, v: unknown): boolean {
+    if (!v || typeof v !== "object") return false
+    const obj = v as Record<string, unknown>
+    if (freq === "monthly") return typeof obj.day === "number"
+    if (freq === "semi_monthly") return Array.isArray(obj.days) && obj.days.length === 2
+    if (freq === "weekly") return typeof obj.weekday === "string"
+    if (freq === "biweekly") return typeof obj.weekday === "string" && typeof obj.anchor_date === "string"
+    return false
+}
+
 export function PayDayConfigInput({ frequency, value, onChange }: Props) {
+    const safeValue = isValidConfigForFrequency(frequency, value)
+        ? value
+        : getDefaultPayDayConfig(frequency)
+
     if (frequency === "monthly") {
-        const cfg = value as { day: number }
+        const cfg = safeValue as { day: number }
         return (
             <div className="space-y-2">
                 <Label htmlFor="pay_day">Day of month</Label>
@@ -67,7 +81,7 @@ export function PayDayConfigInput({ frequency, value, onChange }: Props) {
     }
 
     if (frequency === "semi_monthly") {
-        const cfg = value as { days: (number | "last")[] }
+        const cfg = safeValue as { days: (number | "last")[] }
         const days = cfg.days ?? [15, "last"]
         const dayOptions = Array.from({ length: 31 }, (_, i) => i + 1)
 
@@ -106,7 +120,7 @@ export function PayDayConfigInput({ frequency, value, onChange }: Props) {
     }
 
     if (frequency === "weekly") {
-        const cfg = value as { weekday: Weekday }
+        const cfg = safeValue as { weekday: Weekday }
         return (
             <div className="space-y-2">
                 <Label htmlFor="pay_weekday">Pay day</Label>
@@ -130,7 +144,7 @@ export function PayDayConfigInput({ frequency, value, onChange }: Props) {
     }
 
     if (frequency === "biweekly") {
-        const cfg = value as { weekday: Weekday; anchor_date: string }
+        const cfg = safeValue as { weekday: Weekday; anchor_date: string }
         return (
             <div className="space-y-2">
                 <Label>Pay day</Label>

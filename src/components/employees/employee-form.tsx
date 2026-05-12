@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm, type UseFormReturn } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -420,6 +420,16 @@ function PayrollStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
     const expenseCategories = categories.data?.filter((c) => c.type === "expense") ?? []
     const currentFrequency = form.watch("pay_frequency")
 
+    // Belt-and-suspenders: if frequency changes without the config being reset
+    // (e.g. form.reset with mismatched initialValues), sync the config to match.
+    useEffect(() => {
+        form.setValue(
+            "pay_day_config",
+            getDefaultPayDayConfig(currentFrequency) as Record<string, unknown>,
+        )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentFrequency])
+
     return (
         <FieldGrid>
             <FormField
@@ -500,7 +510,10 @@ function PayrollStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel className={labelClass}>Default account</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select
+                            value={field.value != null ? String(field.value) : ""}
+                            onValueChange={(v) => field.onChange(v)}
+                        >
                             <FormControl>
                                 <SelectTrigger className={selectClass}>
                                     <SelectValue placeholder="Select account" />
@@ -524,7 +537,10 @@ function PayrollStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel className={labelClass}>Default category</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select
+                            value={field.value != null ? String(field.value) : ""}
+                            onValueChange={(v) => field.onChange(v)}
+                        >
                             <FormControl>
                                 <SelectTrigger className={selectClass}>
                                     <SelectValue placeholder="Select category" />
@@ -604,6 +620,7 @@ export function EmployeeForm({
     })
 
     async function handleNext() {
+        if (currentStep >= STEP_LABELS.length - 1) return
         const isValid = await form.trigger(STEP_FIELDS[currentStep])
         if (isValid) setCurrentStep((s) => s + 1)
     }
