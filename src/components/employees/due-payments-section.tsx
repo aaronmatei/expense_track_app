@@ -121,6 +121,10 @@ export function DuePaymentsSection({
                             />
                         )}
 
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-sm font-medium text-white">
+                            {emp.first_name[0]}{emp.last_name[0]}
+                        </div>
+
                         {/* Name + badge */}
                         <div className="min-w-0 flex-1">
                             <p className="truncate text-sm font-medium">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useForm, type UseFormReturn } from "react-hook-form"
+import { useForm, useWatch, type UseFormReturn } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
@@ -415,88 +415,89 @@ function BankingStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
 }
 
 function PayrollStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
-    const accounts = useAccounts()
-    const categories = useCategories()
-    const expenseCategories = categories.data?.filter((c) => c.type === "expense") ?? []
-    const currentFrequency = form.watch("pay_frequency")
+    const { data: accounts = [] } = useAccounts()
+    const { data: categories = [] } = useCategories()
+    const expenseCategories = categories.filter((c) => c.type === "expense")
 
-    // Belt-and-suspenders: if frequency changes without the config being reset
-    // (e.g. form.reset with mismatched initialValues), sync the config to match.
+    const payFrequency = useWatch({ control: form.control, name: "pay_frequency" })
+
     useEffect(() => {
         form.setValue(
             "pay_day_config",
-            getDefaultPayDayConfig(currentFrequency) as Record<string, unknown>,
+            getDefaultPayDayConfig(payFrequency) as Record<string, unknown>,
+            { shouldValidate: false },
         )
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentFrequency])
+    }, [payFrequency])
 
     return (
-        <FieldGrid>
+        <div className="grid grid-cols-1 gap-x-5 gap-y-4 sm:grid-cols-2 md:grid-cols-3">
             <FormField
                 control={form.control}
                 name="pay_amount"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel className={labelClass}>Pay amount</FormLabel>
-                        <div className="flex items-center">
-                            <span className="flex h-10 items-center rounded-l-md border border-r-0 border-slate-300 bg-slate-50 px-3 text-sm text-slate-500">
-                                KES
-                            </span>
-                            <FormControl>
+                        <FormLabel className={labelClass}>Typical pay amount</FormLabel>
+                        <FormControl>
+                            <div className="relative">
+                                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-500">
+                                    KES
+                                </span>
                                 <Input
                                     {...field}
+                                    value={field.value ?? ""}
                                     type="number"
-                                    min={0}
                                     step="0.01"
                                     placeholder="50000.00"
-                                    className={`rounded-l-none ${inputClass}`}
+                                    className={`${inputClass} pl-12`}
                                 />
-                            </FormControl>
-                        </div>
+                            </div>
+                        </FormControl>
+                        <p className="text-xs text-slate-500">
+                            Optional — pre-fills when you mark this employee paid.
+                        </p>
                         <FormMessage />
                     </FormItem>
                 )}
             />
+
             <FormField
                 control={form.control}
                 name="pay_frequency"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel className={labelClass}>Pay frequency <RequiredMark /></FormLabel>
-                        <Select
-                            onValueChange={(v) => {
-                                field.onChange(v)
-                                form.setValue(
-                                    "pay_day_config",
-                                    getDefaultPayDayConfig(v as PayFrequency) as Record<string, unknown>,
-                                )
-                            }}
-                            value={field.value}
-                        >
-                            <FormControl>
+                        <FormLabel className={labelClass}>
+                            Pay frequency <RequiredMark />
+                        </FormLabel>
+                        <FormControl>
+                            <Select value={field.value} onValueChange={field.onChange}>
                                 <SelectTrigger className={selectClass}>
-                                    <SelectValue />
+                                    <SelectValue placeholder="Select frequency" />
                                 </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                                {PAY_FREQUENCIES.map((f) => (
-                                    <SelectItem key={f.value} value={f.value}>
-                                        {f.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                                <SelectContent>
+                                    {PAY_FREQUENCIES.map((f) => (
+                                        <SelectItem key={f.value} value={f.value}>
+                                            {f.label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </FormControl>
                         <FormMessage />
                     </FormItem>
                 )}
             />
+
             <FormField
                 control={form.control}
                 name="pay_day_config"
                 render={({ field }) => (
                     <FormItem>
+                        <FormLabel className={labelClass}>
+                            Pay day <RequiredMark />
+                        </FormLabel>
                         <PayDayConfigInput
-                            frequency={currentFrequency}
+                            frequency={payFrequency}
                             value={field.value as Parameters<typeof PayDayConfigInput>[0]["value"]}
                             onChange={(v) => field.onChange(v as Record<string, unknown>)}
                         />
@@ -504,61 +505,63 @@ function PayrollStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
                     </FormItem>
                 )}
             />
+
             <FormField
                 control={form.control}
                 name="default_account_id"
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel className={labelClass}>Default account</FormLabel>
-                        <Select
-                            value={field.value != null ? String(field.value) : ""}
-                            onValueChange={(v) => field.onChange(v)}
-                        >
-                            <FormControl>
+                        <FormControl>
+                            <Select
+                                value={field.value != null ? String(field.value) : ""}
+                                onValueChange={(v) => field.onChange(v === "" ? null : String(v))}
+                            >
                                 <SelectTrigger className={selectClass}>
                                     <SelectValue placeholder="Select account" />
                                 </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                                {accounts.data?.map((a) => (
-                                    <SelectItem key={a.id} value={String(a.id)}>
-                                        {a.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                                <SelectContent>
+                                    {accounts.map((a) => (
+                                        <SelectItem key={a.id} value={String(a.id)}>
+                                            {a.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </FormControl>
                         <FormMessage />
                     </FormItem>
                 )}
             />
+
             <FormField
                 control={form.control}
                 name="default_category_id"
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel className={labelClass}>Default category</FormLabel>
-                        <Select
-                            value={field.value != null ? String(field.value) : ""}
-                            onValueChange={(v) => field.onChange(v)}
-                        >
-                            <FormControl>
+                        <FormControl>
+                            <Select
+                                value={field.value != null ? String(field.value) : ""}
+                                onValueChange={(v) => field.onChange(v === "" ? null : String(v))}
+                            >
                                 <SelectTrigger className={selectClass}>
                                     <SelectValue placeholder="Select category" />
                                 </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                                {expenseCategories.map((c) => (
-                                    <SelectItem key={c.id} value={String(c.id)}>
-                                        {c.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                                <SelectContent>
+                                    {expenseCategories.map((c) => (
+                                        <SelectItem key={c.id} value={String(c.id)}>
+                                            {c.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </FormControl>
                         <FormMessage />
                     </FormItem>
                 )}
             />
-        </FieldGrid>
+        </div>
     )
 }
 
