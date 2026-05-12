@@ -7,10 +7,10 @@ import {
 
 import { BudgetOverview } from "@/components/dashboard/budget-overview"
 import { CategoryBreakdownChart } from "@/components/dashboard/category-breakdown-chart"
+import { DueNowWidget } from "@/components/dashboard/due-now-widget"
 import { MonthlyTrendChart } from "@/components/dashboard/monthly-trend-chart"
 import { RecentTransactions } from "@/components/dashboard/recent-transactions"
 import { StatCard } from "@/components/dashboard/stat-card"
-import { DuePaymentsSection } from "@/components/employees/due-payments-section"
 import { useAccountsSummary } from "@/hooks/use-accounts"
 import { useMe } from "@/hooks/use-me"
 import { useTransactionsSummary } from "@/hooks/use-transactions"
@@ -116,8 +116,8 @@ export function DashboardPage() {
             </div>
 
             <div className="grid gap-6 lg:grid-cols-3">
-                <div className="lg:col-span-1">
-                    <DuePaymentsSection variant="widget" limit={5} />
+                <div className="lg:col-span-2">
+                    <DueNowWidget />
                 </div>
             </div>
         </div>
