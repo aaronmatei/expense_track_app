@@ -12,14 +12,16 @@ import type {
 export async function listTransactions(
     filters: TransactionFilters = {},
 ): Promise<Transaction[]> {
-    // Strip empty/undefined values so we don't send `?start_date=&category_id=`
-    const params = Object.fromEntries(
-        Object.entries(filters).filter(
-            ([, v]) => v !== undefined && v !== null && v !== "",
-        ),
-    )
     const { data } = await apiClient.get<Transaction[]>("/transactions", {
-        params,
+        params: {
+            skip: filters.skip,
+            limit: filters.limit,
+            start_date: filters.start_date || undefined,
+            end_date: filters.end_date || undefined,
+            category_ids: filters.category_ids?.length ? filters.category_ids : undefined,
+            account_id: filters.account_id ?? undefined,
+        },
+        paramsSerializer: { indexes: null },
     })
     return data
 }

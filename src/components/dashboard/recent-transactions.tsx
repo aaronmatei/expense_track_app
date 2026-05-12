@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 
+import { CategoryIcon } from "@/components/category-icon"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useCategories } from "@/hooks/use-categories"
 import { useTransactions } from "@/hooks/use-transactions"
@@ -47,9 +48,7 @@ export function RecentTransactions() {
                                             backgroundColor: category?.color ?? "#94a3b8",
                                         }}
                                     >
-                                        {category?.icon ||
-                                            category?.name[0]?.toUpperCase() ||
-                                            "?"}
+                                        <CategoryIcon icon={category?.icon} className="text-sm" fallback={category?.name[0]?.toUpperCase() ?? "?"} />
                                     </div>
                                     <div className="min-w-0 flex-1">
                                         <p className="truncate text-sm font-medium">

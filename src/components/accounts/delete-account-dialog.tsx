@@ -9,6 +9,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { useDeleteAccount } from "@/hooks/use-accounts"
+import { getErrorMessage } from "@/lib/errors"
 import type { Account } from "@/types/account"
 
 interface DeleteAccountDialogProps {
@@ -37,6 +38,11 @@ export function DeleteAccountDialog({
                         removes it from your total balance.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
+                {deleteMutation.isError && (
+                    <p className="text-sm text-rose-600">
+                        {getErrorMessage(deleteMutation.error)}
+                    </p>
+                )}
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction

@@ -10,6 +10,9 @@ import {
 import { TransactionList } from "@/components/transactions/transaction-list"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { useAccounts } from "@/hooks/use-accounts"
+import { formatCurrency } from "@/lib/format"
+import { cn } from "@/lib/utils"
 import { useCategories } from "@/hooks/use-categories"
 import { useTransactions } from "@/hooks/use-transactions"
 import type { Transaction } from "@/types/transaction"
@@ -17,7 +20,9 @@ import type { Transaction } from "@/types/transaction"
 const EMPTY_FILTERS: TransactionFiltersState = {
     startDate: "",
     endDate: "",
-    categoryId: "",
+    categoryIds: [],
+    accountId: "",
+    type: "all",
 }
 
 export function TransactionsPage() {
@@ -26,19 +31,49 @@ export function TransactionsPage() {
     const [editing, setEditing] = useState<Transaction | undefined>(undefined)
     const [deleting, setDeleting] = useState<Transaction | null>(null)
 
+    // Server-side filters (date, category, account — sent to the API)
     const apiFilters = {
         start_date: filters.startDate || undefined,
         end_date: filters.endDate || undefined,
-        category_id: filters.categoryId ? Number(filters.categoryId) : undefined,
+        category_ids: filters.categoryIds.length ? filters.categoryIds : undefined,
+        account_id: filters.accountId ? Number(filters.accountId) : undefined,
     }
 
     const transactions = useTransactions(apiFilters)
     const categories = useCategories()
+    const accounts = useAccounts()
 
     const categoryMap = useMemo(() => {
         if (!categories.data) return new Map()
         return new Map(categories.data.map((c) => [c.id, c]))
     }, [categories.data])
+
+    const accountMap = useMemo(() => {
+        if (!accounts.data) return new Map()
+        return new Map(accounts.data.map((a) => [a.id, a]))
+    }, [accounts.data])
+
+    // Client-side type filter (applied after the fetch)
+    const visibleTransactions = useMemo(() => {
+        if (!transactions.data) return undefined
+        if (filters.type === "all") return transactions.data
+        return transactions.data.filter((t) => {
+            const category = categoryMap.get(t.category_id)
+            return category?.type === filters.type
+        })
+    }, [transactions.data, filters.type, categoryMap])
+
+    const stats = useMemo(() => {
+        if (!visibleTransactions) return { income: 0, expenses: 0, net: 0, count: 0 }
+        let income = 0
+        let expenses = 0
+        for (const t of visibleTransactions) {
+            const category = categoryMap.get(t.category_id)
+            if (category?.type === "income") income += Number(t.amount)
+            else expenses += Number(t.amount)
+        }
+        return { income, expenses, net: income - expenses, count: visibleTransactions.length }
+    }, [visibleTransactions, categoryMap])
 
     function handleCreate() {
         setEditing(undefined)
@@ -56,7 +91,11 @@ export function TransactionsPage() {
     }
 
     const hasActiveFilters =
-        !!filters.startDate || !!filters.endDate || !!filters.categoryId
+        !!filters.startDate ||
+        !!filters.endDate ||
+        filters.categoryIds.length > 0 ||
+        !!filters.accountId ||
+        filters.type !== "all"
 
     return (
         <div className="space-y-6">
@@ -78,6 +117,41 @@ export function TransactionsPage() {
                 onClear={() => setFilters(EMPTY_FILTERS)}
             />
 
+            {visibleTransactions && visibleTransactions.length > 0 && (
+                <div className="flex flex-wrap items-center gap-x-8 gap-y-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm">
+                    <div className="flex items-center gap-1.5">
+                        <span className="text-slate-500">Income</span>
+                        <span className="font-semibold tabular-nums text-emerald-600">
+                            +{formatCurrency(stats.income)}
+                        </span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                        <span className="text-slate-500">Expenses</span>
+                        <span className="font-semibold tabular-nums text-rose-600">
+                            -{formatCurrency(stats.expenses)}
+                        </span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                        <span className="text-slate-500">Net</span>
+                        <span
+                            className={cn(
+                                "font-semibold tabular-nums",
+                                stats.net > 0
+                                    ? "text-emerald-600"
+                                    : stats.net < 0
+                                      ? "text-rose-600"
+                                      : "text-slate-700",
+                            )}
+                        >
+                            {stats.net > 0 && "+"}{formatCurrency(stats.net)}
+                        </span>
+                    </div>
+                    <div className="ml-auto text-slate-500">
+                        {stats.count} {stats.count === 1 ? "transaction" : "transactions"}
+                    </div>
+                </div>
+            )}
+
             {transactions.isLoading && (
                 <p className="text-sm text-slate-600">Loading…</p>
             )}
@@ -85,7 +159,7 @@ export function TransactionsPage() {
                 <p className="text-sm text-red-600">Failed to load transactions</p>
             )}
 
-            {transactions.data && transactions.data.length === 0 && (
+            {visibleTransactions && visibleTransactions.length === 0 && (
                 <Card>
                     <CardContent className="flex flex-col items-center gap-3 py-16">
                         <p className="text-sm text-slate-600">
@@ -100,12 +174,13 @@ export function TransactionsPage() {
                 </Card>
             )}
 
-            {transactions.data && transactions.data.length > 0 && (
+            {visibleTransactions && visibleTransactions.length > 0 && (
                 <Card>
                     <CardContent className="p-0">
                         <TransactionList
-                            transactions={transactions.data}
+                            transactions={visibleTransactions}
                             categoryMap={categoryMap}
+                            accountMap={accountMap}
                             onEdit={handleEdit}
                             onDelete={setDeleting}
                         />

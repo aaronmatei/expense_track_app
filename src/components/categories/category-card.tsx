@@ -1,5 +1,6 @@
 import { Pencil, Trash2 } from "lucide-react"
 
+import { CategoryIcon } from "@/components/category-icon"
 import { Button } from "@/components/ui/button"
 import type { Category } from "@/types/category"
 
@@ -20,7 +21,7 @@ export function CategoryCard({
                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-lg text-white"
                 style={{ backgroundColor: category.color ?? "#94a3b8" }}
             >
-                {category.icon || category.name[0]?.toUpperCase()}
+                <CategoryIcon icon={category.icon} className="text-lg" fallback={category.name[0]?.toUpperCase()} />
             </div>
             <p className="min-w-0 flex-1 truncate text-sm font-medium">
                 {category.name}

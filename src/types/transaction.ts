@@ -4,6 +4,7 @@ export interface Transaction {
     description: string | null
     transaction_date: string // YYYY-MM-DD
     category_id: number
+    account_id: number
     user_id: number
     created_at: string
     updated_at: string | null
@@ -14,6 +15,7 @@ export interface TransactionCreate {
     description?: string | null
     transaction_date: string
     category_id: number
+    account_id: number
 }
 
 export type TransactionUpdate = Partial<TransactionCreate>
@@ -21,7 +23,8 @@ export type TransactionUpdate = Partial<TransactionCreate>
 export interface TransactionFilters {
     skip?: number
     limit?: number
-    category_id?: number
+    category_ids?: number[]
+    account_id?: number
     start_date?: string
     end_date?: string
 }

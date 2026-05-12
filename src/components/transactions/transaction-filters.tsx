@@ -1,5 +1,6 @@
 import { X } from "lucide-react"
 
+import { CategoryMultiSelect } from "@/components/transactions/category-multi-select"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,12 +11,15 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { useAccounts } from "@/hooks/use-accounts"
 import { useCategories } from "@/hooks/use-categories"
 
 export interface TransactionFiltersState {
     startDate: string
     endDate: string
-    categoryId: string // "" means all
+    categoryIds: number[]
+    accountId: string
+    type: "all" | "income" | "expense"
 }
 
 interface TransactionFiltersProps {
@@ -30,8 +34,13 @@ export function TransactionFilters({
     onClear,
 }: TransactionFiltersProps) {
     const categories = useCategories()
+    const accounts = useAccounts()
     const hasFilters =
-        !!filters.startDate || !!filters.endDate || !!filters.categoryId
+        !!filters.startDate ||
+        !!filters.endDate ||
+        filters.categoryIds.length > 0 ||
+        !!filters.accountId ||
+        filters.type !== "all"
 
     return (
         <div className="flex flex-wrap items-end gap-3 rounded-lg border border-slate-200 bg-white p-4">
@@ -62,24 +71,51 @@ export function TransactionFilters({
                 />
             </div>
             <div className="space-y-1">
-                <Label htmlFor="category" className="text-xs">
-                    Category
+                <Label htmlFor="type" className="text-xs">
+                    Type
                 </Label>
                 <Select
-                    value={filters.categoryId || "all"}
+                    value={filters.type}
                     onValueChange={(v) =>
-                        onChange({ ...filters, categoryId: v === "all" ? "" : v })
+                        onChange({ ...filters, type: v as TransactionFiltersState["type"] })
                     }
                 >
-                    <SelectTrigger id="category" className="w-48">
+                    <SelectTrigger id="type" className="w-36">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="all">All categories</SelectItem>
-                        {categories.data?.map((c) => (
-                            <SelectItem key={c.id} value={String(c.id)}>
-                                {c.icon && <span className="mr-2">{c.icon}</span>}
-                                {c.name}
+                        <SelectItem value="all">All types</SelectItem>
+                        <SelectItem value="income">Income</SelectItem>
+                        <SelectItem value="expense">Expense</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+            <div className="space-y-1">
+                <Label className="text-xs">Category</Label>
+                <CategoryMultiSelect
+                    categories={categories.data ?? []}
+                    selectedIds={filters.categoryIds}
+                    onChange={(ids) => onChange({ ...filters, categoryIds: ids })}
+                />
+            </div>
+            <div className="space-y-1">
+                <Label htmlFor="account" className="text-xs">
+                    Account
+                </Label>
+                <Select
+                    value={filters.accountId || "all"}
+                    onValueChange={(v) =>
+                        onChange({ ...filters, accountId: v === "all" ? "" : v })
+                    }
+                >
+                    <SelectTrigger id="account" className="w-48">
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All accounts</SelectItem>
+                        {accounts.data?.map((a) => (
+                            <SelectItem key={a.id} value={String(a.id)}>
+                                {a.name}
                             </SelectItem>
                         ))}
                     </SelectContent>

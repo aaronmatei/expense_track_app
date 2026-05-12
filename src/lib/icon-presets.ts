@@ -1,0 +1,33 @@
+export const EMOJI_PRESETS = [
+    "🛒", "🍔", "☕", "🚌",
+    "⛽", "🏠", "⚡", "📱",
+    "💼", "💰", "🎬", "🎮",
+    "👕", "✈️", "🏥", "🎁",
+]
+
+export const LUCIDE_PRESETS = [
+    "shopping-cart",
+    "shopping-bag",
+    "utensils",
+    "coffee",
+    "car",
+    "bus",
+    "plane",
+    "fuel",
+    "house",
+    "zap",
+    "smartphone",
+    "tv",
+    "shirt",
+    "heart-pulse",
+    "briefcase",
+    "badge-pound-sterling",
+    "banknote-arrow-up",
+    "banknote-arrow-down",
+    "piggy-bank",
+    "credit-card",
+    "gift",
+    "graduation-cap",
+    "dumbbell",
+    "wallet",
+]

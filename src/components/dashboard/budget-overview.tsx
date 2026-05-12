@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 
+import { CategoryIcon } from "@/components/category-icon"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { useBudgetsSummary } from "@/hooks/use-budgets"
@@ -67,8 +68,7 @@ export function BudgetOverview() {
                                                 backgroundColor: category?.color ?? "#94a3b8",
                                             }}
                                         >
-                                            {category?.icon ||
-                                                b.category_name[0]?.toUpperCase()}
+                                            <CategoryIcon icon={category?.icon} className="text-sm" fallback={b.category_name[0]?.toUpperCase()} />
                                         </div>
                                         <span className="min-w-0 flex-1 truncate text-sm font-medium">
                                             {b.category_name}

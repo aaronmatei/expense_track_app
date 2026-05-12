@@ -1,5 +1,6 @@
 import { Pencil, Trash2 } from "lucide-react"
 
+import { CategoryIcon } from "@/components/category-icon"
 import { Button } from "@/components/ui/button"
 import {
     Table,
@@ -10,6 +11,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { cn } from "@/lib/utils"
+import type { Account } from "@/types/account"
 import type { Category } from "@/types/category"
 import type { Transaction } from "@/types/transaction"
 
@@ -30,6 +32,7 @@ function formatAmount(amount: string, isIncome: boolean): string {
 interface TransactionListProps {
     transactions: Transaction[]
     categoryMap: Map<number, Category>
+    accountMap: Map<number, Account>
     onEdit: (t: Transaction) => void
     onDelete: (t: Transaction) => void
 }
@@ -37,6 +40,7 @@ interface TransactionListProps {
 export function TransactionList({
     transactions,
     categoryMap,
+    accountMap,
     onEdit,
     onDelete,
 }: TransactionListProps) {
@@ -46,6 +50,7 @@ export function TransactionList({
                 <TableRow>
                     <TableHead>Date</TableHead>
                     <TableHead>Category</TableHead>
+                    <TableHead>Account</TableHead>
                     <TableHead>Description</TableHead>
                     <TableHead className="text-right">Amount</TableHead>
                     <TableHead className="w-20" />
@@ -54,6 +59,7 @@ export function TransactionList({
             <TableBody>
                 {transactions.map((t) => {
                     const category = categoryMap.get(t.category_id)
+                    const account = accountMap.get(t.account_id)
                     const isIncome = category?.type === "income"
                     return (
                         <TableRow key={t.id} className="group">
@@ -67,7 +73,7 @@ export function TransactionList({
                                             className="flex h-7 w-7 items-center justify-center rounded-md text-sm text-white"
                                             style={{ backgroundColor: category.color ?? "#94a3b8" }}
                                         >
-                                            {category.icon || category.name[0]?.toUpperCase()}
+                                            <CategoryIcon icon={category.icon} className="text-sm" fallback={category.name[0]?.toUpperCase()} />
                                         </div>
                                         <span className="text-sm font-medium">
                                             {category.name}
@@ -76,6 +82,9 @@ export function TransactionList({
                                 ) : (
                                     <span className="text-sm text-slate-400">Unknown</span>
                                 )}
+                            </TableCell>
+                            <TableCell className="text-sm text-slate-600">
+                                {account?.name ?? "—"}
                             </TableCell>
                             <TableCell className="max-w-xs truncate text-sm text-slate-600">
                                 {t.description || "—"}
