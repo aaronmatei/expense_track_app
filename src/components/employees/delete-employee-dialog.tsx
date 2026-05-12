@@ -30,7 +30,7 @@ export function DeleteEmployeeDialog({
 
     return (
         <AlertDialog open={!!employee} onOpenChange={(open) => !open && onClose()}>
-            <AlertDialogContent>
+            <AlertDialogContent className="max-w-md">
                 <AlertDialogHeader>
                     <AlertDialogTitle>Delete employee?</AlertDialogTitle>
                     <AlertDialogDescription>
