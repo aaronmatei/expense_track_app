@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useForm, type UseFormReturn } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 import {
     getDefaultPayDayConfig,
@@ -29,7 +30,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Stepper } from "@/components/ui/stepper"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { useAccounts } from "@/hooks/use-accounts"
@@ -49,7 +49,7 @@ function RequiredMark() {
 
 function FieldGrid({ children }: { children: React.ReactNode }) {
     return (
-        <div className="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-x-5 gap-y-4 sm:grid-cols-2 md:grid-cols-3">
             {children}
         </div>
     )
@@ -221,7 +221,7 @@ function ContactStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
                 control={form.control}
                 name="address"
                 render={({ field }) => (
-                    <FormItem className="md:col-span-3">
+                    <FormItem className="sm:col-span-2 md:col-span-3">
                         <FormLabel className={labelClass}>Address</FormLabel>
                         <FormControl>
                             <Textarea {...field} placeholder="123 Moi Avenue, Nairobi" className={textareaClass} />
@@ -316,7 +316,7 @@ function EmploymentStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
                 control={form.control}
                 name="notes"
                 render={({ field }) => (
-                    <FormItem className="md:col-span-3">
+                    <FormItem className="sm:col-span-2 md:col-span-3">
                         <FormLabel className={labelClass}>Notes</FormLabel>
                         <FormControl>
                             <Textarea {...field} placeholder="Any additional notes" className={textareaClass} />
@@ -612,24 +612,16 @@ export function EmployeeForm({
         setCurrentStep((s) => Math.max(0, s - 1))
     }
 
-    function handleStepClick(i: number) {
-        if (i <= currentStep) setCurrentStep(i)
-    }
-
     const isLastStep = currentStep === STEP_LABELS.length - 1
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-                <div className="px-8 pt-5 pb-3">
-                    <Stepper
-                        steps={STEP_LABELS}
-                        current={currentStep}
-                        onStepClick={handleStepClick}
-                    />
-                </div>
+                <div className="px-8 py-6">
+                    <h2 className="mb-6 text-lg font-semibold text-slate-900">
+                        {STEP_LABELS[currentStep]}
+                    </h2>
 
-                <div className="px-8 py-5">
                     {currentStep === 0 && <IdentityStep form={form} />}
                     {currentStep === 1 && <ContactStep form={form} />}
                     {currentStep === 2 && <EmploymentStep form={form} />}
@@ -646,15 +638,28 @@ export function EmployeeForm({
                 <div className="flex items-center justify-between border-t border-slate-200 bg-slate-50/60 px-8 py-3">
                     <Button
                         type="button"
-                        variant="outline"
+                        variant="ghost"
                         onClick={handlePrev}
                         disabled={currentStep === 0}
+                        className="text-slate-600 hover:text-slate-900 disabled:opacity-40"
                     >
-                        Previous
+                        <ChevronLeft className="mr-1 h-4 w-4" />
+                        Back
                     </Button>
+
+                    <span className="text-sm font-medium tabular-nums text-slate-700">
+                        {currentStep + 1} / {STEP_LABELS.length}
+                    </span>
+
                     {!isLastStep ? (
-                        <Button type="button" onClick={handleNext}>
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            onClick={handleNext}
+                            className="text-indigo-600 hover:bg-indigo-50 hover:text-indigo-700"
+                        >
                             Next
+                            <ChevronRight className="ml-1 h-4 w-4" />
                         </Button>
                     ) : (
                         <Button type="submit" disabled={isSubmitting}>
