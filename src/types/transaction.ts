@@ -8,6 +8,7 @@ export interface Transaction {
     user_id: number
     employee_id: number | null
     employee: { id: number; full_name: string } | null
+    recurring_transaction_id: number | null
     created_at: string
     updated_at: string | null
 }

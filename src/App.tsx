@@ -9,6 +9,7 @@ import { CategoriesPage } from "@/pages/categories"
 import { DashboardPage } from "@/pages/dashboard"
 import { EmployeesPage } from "@/pages/employees"
 import { LoginPage } from "@/pages/login"
+import { RecurringTransactionsPage } from "@/pages/recurring-transactions"
 import { RegisterPage } from "@/pages/register"
 import { SettingsPage } from "@/pages/settings"
 import { TransactionsPage } from "@/pages/transactions"
@@ -31,6 +32,7 @@ function App() {
               <Route path="/budgets" element={<BudgetsPage />} />
               <Route path="/accounts" element={<AccountsPage />} />
               <Route path="/employees" element={<EmployeesPage />} />
+              <Route path="/recurring-transactions" element={<RecurringTransactionsPage />} />
               <Route path="/settings" element={<SettingsPage />} />
             </Route>
           </Route>

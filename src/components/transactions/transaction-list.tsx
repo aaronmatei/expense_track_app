@@ -1,4 +1,4 @@
-import { Pencil, Trash2, Users } from "lucide-react"
+import { Pencil, Repeat, Trash2, Users } from "lucide-react"
 
 import { CategoryIcon } from "@/components/category-icon"
 import { Button } from "@/components/ui/button"
@@ -93,6 +93,12 @@ export function TransactionList({
                                         <span className="inline-flex w-fit items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">
                                             <Users className="h-3 w-3" />
                                             {t.employee.full_name}
+                                        </span>
+                                    )}
+                                    {t.recurring_transaction_id && (
+                                        <span className="inline-flex w-fit items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">
+                                            <Repeat className="h-3 w-3" />
+                                            Recurring
                                         </span>
                                     )}
                                 </div>
