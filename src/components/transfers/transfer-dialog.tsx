@@ -40,7 +40,7 @@ export function TransferDialog({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-lg">
+            <DialogContent className="max-w-lg overflow-x-hidden">
                 <DialogHeader>
                     <DialogTitle>
                         {transfer ? "Edit transfer" : "New transfer"}

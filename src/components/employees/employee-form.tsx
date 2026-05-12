@@ -431,7 +431,7 @@ function PayrollStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
     }, [payFrequency])
 
     return (
-        <div className="grid grid-cols-1 gap-x-5 gap-y-4 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-x-5 gap-y-4 sm:grid-cols-2">
             <FormField
                 control={form.control}
                 name="pay_amount"

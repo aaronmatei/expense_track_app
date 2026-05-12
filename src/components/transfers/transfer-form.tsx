@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react"
+import { ArrowDown } from "lucide-react"
 import { useEffect, useState, type FormEvent } from "react"
 
 import { Button } from "@/components/ui/button"
@@ -123,13 +123,15 @@ export function TransferForm({
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
-            {/* From / To accounts */}
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_auto_1fr] items-end">
+            {/* From / To accounts — stacked layout */}
+            <div className="space-y-4">
                 <div className="space-y-2">
-                    <Label htmlFor="from_account">From account</Label>
+                    <Label htmlFor="from_account">
+                        From account <span className="text-rose-500">*</span>
+                    </Label>
                     <Select value={fromAccountId} onValueChange={handleFromChange}>
-                        <SelectTrigger id="from_account">
-                            <SelectValue placeholder="Select account" />
+                        <SelectTrigger id="from_account" className="h-10 border-slate-300 dark:border-slate-700">
+                            <SelectValue placeholder="Select source account" />
                         </SelectTrigger>
                         <SelectContent>
                             {accounts.map((a) => (
@@ -141,21 +143,27 @@ export function TransferForm({
                     </Select>
                 </div>
 
-                <ArrowRight className="mb-2.5 hidden h-5 w-5 shrink-0 text-slate-400 md:block" />
+                <div className="flex items-center gap-2 text-slate-400 dark:text-slate-600">
+                    <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
+                    <ArrowDown className="h-3 w-3 shrink-0" />
+                    <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
+                </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="to_account">To account</Label>
+                    <Label htmlFor="to_account">
+                        To account <span className="text-rose-500">*</span>
+                    </Label>
                     <Select
                         value={toAccountId}
                         onValueChange={setToAccountId}
                         disabled={!fromAccountId}
                     >
-                        <SelectTrigger id="to_account">
+                        <SelectTrigger id="to_account" className="h-10 border-slate-300 dark:border-slate-700">
                             <SelectValue
                                 placeholder={
                                     fromAccountId
-                                        ? "Select account"
-                                        : "Pick a source first"
+                                        ? "Select destination account"
+                                        : "Pick source account first"
                                 }
                             />
                         </SelectTrigger>
@@ -169,8 +177,7 @@ export function TransferForm({
                     </Select>
                     {fromAccount && (
                         <p className="text-xs text-slate-500 dark:text-slate-400">
-                            Showing only {fromAccount.currency} accounts (matching the
-                            source account's currency)
+                            Showing only {fromAccount.currency} accounts (matching the source).
                         </p>
                     )}
                 </div>
