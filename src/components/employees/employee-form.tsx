@@ -47,30 +47,15 @@ function RequiredMark() {
     return <span className="text-rose-500">*</span>
 }
 
-function SectionHeader({ title, description }: { title: string; description?: string }) {
+function FieldGrid({ children }: { children: React.ReactNode }) {
     return (
-        <div className="mb-6">
-            <h3 className="text-base font-semibold text-slate-900">{title}</h3>
-            {description && (
-                <p className="mt-1 text-sm text-slate-500">{description}</p>
-            )}
-        </div>
-    )
-}
-
-function SectionDivider() {
-    return <div className="my-8 border-t border-slate-200" />
-}
-
-function FieldGroup({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-3">
             {children}
         </div>
     )
 }
 
-// ─── Step components ──────────────────────────────────────────────────────────
+// ─── Data constants ───────────────────────────────────────────────────────────
 
 const EMPLOYMENT_TYPES = [
     { value: "permanent", label: "Permanent" },
@@ -92,473 +77,340 @@ const GENDERS = [
     { value: "other", label: "Other" },
 ] as const
 
+// ─── Step components ──────────────────────────────────────────────────────────
+
 function IdentityStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
     return (
-        <div>
-            <SectionHeader
-                title="Personal information"
-                description="Basic identity details for this employee."
-            />
-            <FieldGroup>
-                <FormField
-                    control={form.control}
-                    name="first_name"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>
-                                First name <RequiredMark />
-                            </FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="Brian"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="last_name"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>
-                                Last name <RequiredMark />
-                            </FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="Kamau"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </FieldGroup>
-
-            <SectionDivider />
-
-            <SectionHeader title="Additional details" />
-            <FieldGroup>
-                <FormField
-                    control={form.control}
-                    name="date_of_birth"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Date of birth</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    type="date"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="national_id"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>National ID</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="12345678"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="gender"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Gender</FormLabel>
-                            <Select
-                                onValueChange={field.onChange}
-                                value={field.value}
-                            >
-                                <FormControl>
-                                    <SelectTrigger className={selectClass}>
-                                        <SelectValue placeholder="Select gender" />
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                    {GENDERS.map((g) => (
-                                        <SelectItem key={g.value} value={g.value}>
-                                            {g.label}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </FieldGroup>
-        </div>
-    )
-}
-
-function ContactStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
-    return (
-        <div>
-            <SectionHeader
-                title="Contact details"
-                description="How to reach this employee."
-            />
-            <FieldGroup>
-                <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Email</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    type="email"
-                                    placeholder="brian@example.com"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Phone</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="+254 700 000000"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="address"
-                    render={({ field }) => (
-                        <FormItem className="md:col-span-2">
-                            <FormLabel className={labelClass}>Address</FormLabel>
-                            <FormControl>
-                                <Textarea
-                                    {...field}
-                                    placeholder="123 Moi Avenue, Nairobi"
-                                    className={textareaClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </FieldGroup>
-
-            <SectionDivider />
-
-            <SectionHeader title="Emergency contact" />
-            <FieldGroup>
-                <FormField
-                    control={form.control}
-                    name="emergency_contact_name"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Name</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="Jane Kamau"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="emergency_contact_phone"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Phone</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="+254 700 000000"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </FieldGroup>
-        </div>
-    )
-}
-
-function EmploymentStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
-    return (
-        <div>
-            <SectionHeader
-                title="Role"
-                description="Position and employment classification."
-            />
-            <FieldGroup>
-                <FormField
-                    control={form.control}
-                    name="position"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Position</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="Software Engineer"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="employment_type"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Employment type</FormLabel>
-                            <Select
-                                onValueChange={field.onChange}
-                                value={field.value}
-                            >
-                                <FormControl>
-                                    <SelectTrigger className={selectClass}>
-                                        <SelectValue />
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                    {EMPLOYMENT_TYPES.map((t) => (
-                                        <SelectItem key={t.value} value={t.value}>
-                                            {t.label}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </FieldGroup>
-
-            <SectionDivider />
-
-            <SectionHeader title="Status" />
-            <FieldGroup>
-                <FormField
-                    control={form.control}
-                    name="start_date"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>
-                                Start date <RequiredMark />
-                            </FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    type="date"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="is_active"
-                    render={({ field }) => (
-                        <FormItem>
-                            <div className="flex items-center gap-3 pt-6">
-                                <FormControl>
-                                    <Switch
-                                        checked={field.value}
-                                        onCheckedChange={field.onChange}
-                                    />
-                                </FormControl>
-                                <FormLabel className="cursor-pointer text-sm font-medium text-slate-700">
-                                    Active employee
-                                </FormLabel>
-                            </div>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </FieldGroup>
-
-            <SectionDivider />
-
-            <SectionHeader title="Notes" />
+        <FieldGrid>
             <FormField
                 control={form.control}
-                name="notes"
+                name="first_name"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel className={labelClass}>Notes</FormLabel>
+                        <FormLabel className={labelClass}>First name <RequiredMark /></FormLabel>
                         <FormControl>
-                            <Textarea
-                                {...field}
-                                placeholder="Any additional notes"
-                                className={textareaClass}
-                            />
+                            <Input {...field} placeholder="Brian" className={inputClass} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
                 )}
             />
-        </div>
+            <FormField
+                control={form.control}
+                name="last_name"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Last name <RequiredMark /></FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="Kamau" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="date_of_birth"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Date of birth</FormLabel>
+                        <FormControl>
+                            <Input {...field} type="date" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="national_id"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>National ID</FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="12345678" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="gender"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Gender</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                                <SelectTrigger className={selectClass}>
+                                    <SelectValue placeholder="Select gender" />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {GENDERS.map((g) => (
+                                    <SelectItem key={g.value} value={g.value}>
+                                        {g.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+        </FieldGrid>
+    )
+}
+
+function ContactStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
+    return (
+        <FieldGrid>
+            <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Email</FormLabel>
+                        <FormControl>
+                            <Input {...field} type="email" placeholder="brian@example.com" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Phone</FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="+254 700 000000" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="emergency_contact_phone"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Emergency phone</FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="+254 700 000000" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="emergency_contact_name"
+                render={({ field }) => (
+                    <FormItem className="md:col-span-2">
+                        <FormLabel className={labelClass}>Emergency contact name</FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="Jane Kamau" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                    <FormItem className="md:col-span-3">
+                        <FormLabel className={labelClass}>Address</FormLabel>
+                        <FormControl>
+                            <Textarea {...field} placeholder="123 Moi Avenue, Nairobi" className={textareaClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+        </FieldGrid>
+    )
+}
+
+function EmploymentStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
+    return (
+        <FieldGrid>
+            <FormField
+                control={form.control}
+                name="position"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Position</FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="Software Engineer" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="employment_type"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Employment type</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                                <SelectTrigger className={selectClass}>
+                                    <SelectValue />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {EMPLOYMENT_TYPES.map((t) => (
+                                    <SelectItem key={t.value} value={t.value}>
+                                        {t.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="start_date"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Start date <RequiredMark /></FormLabel>
+                        <FormControl>
+                            <Input {...field} type="date" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="is_active"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Status</FormLabel>
+                        <div className="flex h-10 items-center gap-2 rounded-md border border-slate-300 px-3">
+                            <FormControl>
+                                <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                    id="is_active"
+                                />
+                            </FormControl>
+                            <label
+                                htmlFor="is_active"
+                                className="cursor-pointer select-none text-sm text-slate-700"
+                            >
+                                Active employee
+                            </label>
+                        </div>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="notes"
+                render={({ field }) => (
+                    <FormItem className="md:col-span-3">
+                        <FormLabel className={labelClass}>Notes</FormLabel>
+                        <FormControl>
+                            <Textarea {...field} placeholder="Any additional notes" className={textareaClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+        </FieldGrid>
     )
 }
 
 function BankingStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
     return (
-        <div>
-            <SectionHeader
-                title="Bank account"
-                description="Payment details for salary disbursement."
+        <FieldGrid>
+            <FormField
+                control={form.control}
+                name="bank_name"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Bank name</FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="Equity Bank" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
             />
-            <FieldGroup>
-                <FormField
-                    control={form.control}
-                    name="bank_name"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Bank name</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="Equity Bank"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="bank_branch"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Bank branch</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="Westlands"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="bank_account_number"
-                    render={({ field }) => (
-                        <FormItem className="md:col-span-2">
-                            <FormLabel className={labelClass}>Account number</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="0123456789"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </FieldGroup>
-
-            <SectionDivider />
-
-            <SectionHeader
-                title="Statutory"
-                description="Tax and social security identifiers."
+            <FormField
+                control={form.control}
+                name="bank_account_number"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Account number</FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="0123456789" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
             />
-            <FieldGroup>
-                <FormField
-                    control={form.control}
-                    name="kra_pin"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>KRA PIN</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="A012345678B"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="nhif_number"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>NHIF number</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="12345678"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="nssf_number"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>NSSF number</FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    placeholder="12345678"
-                                    className={inputClass}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </FieldGroup>
-        </div>
+            <FormField
+                control={form.control}
+                name="bank_branch"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Bank branch</FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="Westlands" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="kra_pin"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>KRA PIN</FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="A012345678B" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="nhif_number"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>NHIF number</FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="12345678" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="nssf_number"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>NSSF number</FormLabel>
+                        <FormControl>
+                            <Input {...field} placeholder="12345678" className={inputClass} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+        </FieldGrid>
     )
 }
 
@@ -569,157 +421,128 @@ function PayrollStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
     const currentFrequency = form.watch("pay_frequency")
 
     return (
-        <div>
-            <SectionHeader
-                title="Pay schedule"
-                description="Frequency and timing of salary payments."
+        <FieldGrid>
+            <FormField
+                control={form.control}
+                name="pay_amount"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Pay amount</FormLabel>
+                        <div className="flex items-center">
+                            <span className="flex h-10 items-center rounded-l-md border border-r-0 border-slate-300 bg-slate-50 px-3 text-sm text-slate-500">
+                                KES
+                            </span>
+                            <FormControl>
+                                <Input
+                                    {...field}
+                                    type="number"
+                                    min={0}
+                                    step="0.01"
+                                    placeholder="50000.00"
+                                    className={`rounded-l-none ${inputClass}`}
+                                />
+                            </FormControl>
+                        </div>
+                        <FormMessage />
+                    </FormItem>
+                )}
             />
-            <FieldGroup>
-                <FormField
-                    control={form.control}
-                    name="pay_amount"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Typical pay amount</FormLabel>
-                            <div className="flex items-center">
-                                <span className="flex h-10 items-center rounded-l-md border border-r-0 border-slate-300 bg-slate-50 px-3 text-sm text-slate-500">
-                                    KES
-                                </span>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        type="number"
-                                        min={0}
-                                        step="0.01"
-                                        placeholder="50000.00"
-                                        className={`rounded-l-none ${inputClass}`}
-                                    />
-                                </FormControl>
-                            </div>
-                            <p className="text-xs text-slate-500">
-                                Optional — pre-fills the amount when marking this employee as paid.
-                            </p>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="pay_frequency"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>
-                                Pay frequency <RequiredMark />
-                            </FormLabel>
-                            <Select
-                                onValueChange={(v) => {
-                                    field.onChange(v)
-                                    form.setValue(
-                                        "pay_day_config",
-                                        getDefaultPayDayConfig(v as PayFrequency) as Record<string, unknown>,
-                                    )
-                                }}
-                                value={field.value}
-                            >
-                                <FormControl>
-                                    <SelectTrigger className={selectClass}>
-                                        <SelectValue />
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                    {PAY_FREQUENCIES.map((f) => (
-                                        <SelectItem key={f.value} value={f.value}>
-                                            {f.label}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </FieldGroup>
-
-            <div className="mt-5">
-                <FormField
-                    control={form.control}
-                    name="pay_day_config"
-                    render={({ field }) => (
-                        <FormItem>
-                            <PayDayConfigInput
-                                frequency={currentFrequency}
-                                value={field.value as Parameters<typeof PayDayConfigInput>[0]["value"]}
-                                onChange={(v) => field.onChange(v as Record<string, unknown>)}
-                            />
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </div>
-
-            <SectionDivider />
-
-            <SectionHeader
-                title="Defaults"
-                description="Pre-filled values when recording payroll transactions."
+            <FormField
+                control={form.control}
+                name="pay_frequency"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Pay frequency <RequiredMark /></FormLabel>
+                        <Select
+                            onValueChange={(v) => {
+                                field.onChange(v)
+                                form.setValue(
+                                    "pay_day_config",
+                                    getDefaultPayDayConfig(v as PayFrequency) as Record<string, unknown>,
+                                )
+                            }}
+                            value={field.value}
+                        >
+                            <FormControl>
+                                <SelectTrigger className={selectClass}>
+                                    <SelectValue />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {PAY_FREQUENCIES.map((f) => (
+                                    <SelectItem key={f.value} value={f.value}>
+                                        {f.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                    </FormItem>
+                )}
             />
-            <FieldGroup>
-                <FormField
-                    control={form.control}
-                    name="default_account_id"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Default account</FormLabel>
-                            <Select
-                                onValueChange={field.onChange}
-                                value={field.value}
-                            >
-                                <FormControl>
-                                    <SelectTrigger className={selectClass}>
-                                        <SelectValue placeholder="Select account" />
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                    {accounts.data?.map((a) => (
-                                        <SelectItem key={a.id} value={String(a.id)}>
-                                            {a.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="default_category_id"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={labelClass}>Default category</FormLabel>
-                            <Select
-                                onValueChange={field.onChange}
-                                value={field.value}
-                            >
-                                <FormControl>
-                                    <SelectTrigger className={selectClass}>
-                                        <SelectValue placeholder="Select category" />
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                    {expenseCategories.map((c) => (
-                                        <SelectItem key={c.id} value={String(c.id)}>
-                                            {c.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </FieldGroup>
-        </div>
+            <FormField
+                control={form.control}
+                name="pay_day_config"
+                render={({ field }) => (
+                    <FormItem>
+                        <PayDayConfigInput
+                            frequency={currentFrequency}
+                            value={field.value as Parameters<typeof PayDayConfigInput>[0]["value"]}
+                            onChange={(v) => field.onChange(v as Record<string, unknown>)}
+                        />
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="default_account_id"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Default account</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                                <SelectTrigger className={selectClass}>
+                                    <SelectValue placeholder="Select account" />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {accounts.data?.map((a) => (
+                                    <SelectItem key={a.id} value={String(a.id)}>
+                                        {a.name}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="default_category_id"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel className={labelClass}>Default category</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                                <SelectTrigger className={selectClass}>
+                                    <SelectValue placeholder="Select category" />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {expenseCategories.map((c) => (
+                                    <SelectItem key={c.id} value={String(c.id)}>
+                                        {c.name}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+        </FieldGrid>
     )
 }
 
@@ -798,7 +621,7 @@ export function EmployeeForm({
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-                <div className="px-8 pt-6 pb-4">
+                <div className="px-8 pt-5 pb-3">
                     <Stepper
                         steps={STEP_LABELS}
                         current={currentStep}
@@ -806,7 +629,7 @@ export function EmployeeForm({
                     />
                 </div>
 
-                <div className="px-8 py-6 min-h-[400px]">
+                <div className="px-8 py-5">
                     {currentStep === 0 && <IdentityStep form={form} />}
                     {currentStep === 1 && <ContactStep form={form} />}
                     {currentStep === 2 && <EmploymentStep form={form} />}
@@ -815,12 +638,12 @@ export function EmployeeForm({
                 </div>
 
                 {errorMessage && (
-                    <div className="mx-8 mb-4 rounded-md border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                    <div className="mx-8 mb-3 rounded-md border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
                         {errorMessage}
                     </div>
                 )}
 
-                <div className="flex items-center justify-between border-t border-slate-200 bg-slate-50/60 px-8 py-4">
+                <div className="flex items-center justify-between border-t border-slate-200 bg-slate-50/60 px-8 py-3">
                     <Button
                         type="button"
                         variant="outline"

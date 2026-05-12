@@ -132,9 +132,9 @@ export function PayDayConfigInput({ frequency, value, onChange }: Props) {
     if (frequency === "biweekly") {
         const cfg = value as { weekday: Weekday; anchor_date: string }
         return (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div className="space-y-2">
-                    <Label htmlFor="bi_weekday">Pay day</Label>
+            <div className="space-y-2">
+                <Label>Pay day</Label>
+                <div className="grid grid-cols-2 gap-2">
                     <Select
                         value={cfg.weekday ?? "friday"}
                         onValueChange={(v) =>
@@ -152,9 +152,6 @@ export function PayDayConfigInput({ frequency, value, onChange }: Props) {
                             ))}
                         </SelectContent>
                     </Select>
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="anchor_date">Anchor pay date</Label>
                     <Input
                         id="anchor_date"
                         type="date"
