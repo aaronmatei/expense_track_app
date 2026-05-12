@@ -34,7 +34,7 @@ import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { useAccounts } from "@/hooks/use-accounts"
 import { useCategories } from "@/hooks/use-categories"
-import type { Employee, PayFrequency } from "@/types/employee"
+import type { Employee } from "@/types/employee"
 
 // ─── Shared style constants ───────────────────────────────────────────────────
 
