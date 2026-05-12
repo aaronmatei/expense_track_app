@@ -7,6 +7,7 @@ import {
     Landmark,
     Settings as SettingsIcon,
     Users,
+    Repeat,
 } from "lucide-react"
 import { NavLink } from "react-router-dom"
 
@@ -19,11 +20,13 @@ const navItems = [
     { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { to: "/transactions", label: "Transactions", icon: Receipt },
     { to: "/transfers", label: "Transfers", icon: ArrowLeftRight },
+    { to: "/recurring-transactions", label: "Recurring", icon: Repeat },
     { to: "/categories", label: "Categories", icon: Tag },
     { to: "/budgets", label: "Budgets", icon: Wallet },
     { to: "/accounts", label: "Accounts", icon: Landmark },
     { to: "/employees", label: "Employees", icon: Users },
     { to: "/settings", label: "Settings", icon: SettingsIcon },
+
 ]
 
 function getInitials(name: string | null | undefined, email: string): string {

@@ -78,3 +78,33 @@ export async function getCategorySummary(
     )
     return data
 }
+
+export async function exportTransactionsCsv(filters: {
+    startDate?: string
+    endDate?: string
+    categoryIds?: number[]
+    accountId?: string
+    type?: string
+    employeeId?: number | null
+}): Promise<void> {
+    const response = await apiClient.get("/transactions/export", {
+        params: {
+            start_date: filters.startDate || undefined,
+            end_date: filters.endDate || undefined,
+            category_ids: filters.categoryIds?.length ? filters.categoryIds : undefined,
+            account_id: filters.accountId ? Number(filters.accountId) : undefined,
+            employee_id: filters.employeeId ?? undefined,
+            type: filters.type !== "all" ? filters.type : undefined,
+        },
+        paramsSerializer: { indexes: null },
+        responseType: "blob",
+    })
+    const url = URL.createObjectURL(new Blob([response.data], { type: "text/csv" }))
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `transactions_${new Date().toISOString().slice(0, 10)}.csv`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+}

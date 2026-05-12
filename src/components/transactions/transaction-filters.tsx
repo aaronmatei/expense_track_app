@@ -1,4 +1,5 @@
-import { X } from "lucide-react"
+import { Download, X } from "lucide-react"
+import { useState } from "react"
 
 import { CategoryMultiSelect } from "@/components/transactions/category-multi-select"
 import { EmployeeCombobox } from "@/components/employees/employee-combobox"
@@ -12,6 +13,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { exportTransactionsCsv } from "@/api/transactions"
 import { useAccounts } from "@/hooks/use-accounts"
 import { useCategories } from "@/hooks/use-categories"
 import type { Employee } from "@/types/employee"
@@ -29,15 +31,18 @@ interface TransactionFiltersProps {
     filters: TransactionFiltersState
     onChange: (filters: TransactionFiltersState) => void
     onClear: () => void
+    totalCount?: number
 }
 
 export function TransactionFilters({
     filters,
     onChange,
     onClear,
+    totalCount,
 }: TransactionFiltersProps) {
     const categories = useCategories()
     const accounts = useAccounts()
+    const [isExporting, setIsExporting] = useState(false)
     const hasFilters =
         !!filters.startDate ||
         !!filters.endDate ||
@@ -138,16 +143,39 @@ export function TransactionFilters({
                     />
                 </div>
             </div>
-            {hasFilters && (
+            <div className="ml-auto flex items-center gap-2">
+                {typeof totalCount === "number" && (
+                    <span className="text-xs text-slate-500">
+                        {totalCount} {totalCount === 1 ? "transaction" : "transactions"}
+                    </span>
+                )}
                 <Button
-                    variant="ghost"
+                    variant="outline"
                     size="sm"
-                    onClick={onClear}
-                    className="text-slate-600"
+                    disabled={isExporting}
+                    onClick={async () => {
+                        setIsExporting(true)
+                        try {
+                            await exportTransactionsCsv(filters)
+                        } finally {
+                            setIsExporting(false)
+                        }
+                    }}
                 >
-                    <X className="mr-1 h-4 w-4" /> Clear
+                    <Download className="mr-1 h-4 w-4" />
+                    {isExporting ? "Exporting…" : "Export CSV"}
                 </Button>
-            )}
+                {hasFilters && (
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={onClear}
+                        className="text-slate-600"
+                    >
+                        <X className="mr-1 h-4 w-4" /> Clear
+                    </Button>
+                )}
+            </div>
         </div>
     )
 }

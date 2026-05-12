@@ -118,6 +118,7 @@ export function TransactionsPage() {
                 filters={filters}
                 onChange={setFilters}
                 onClear={() => setFilters(EMPTY_FILTERS)}
+                totalCount={visibleTransactions?.length}
             />
 
             {visibleTransactions && visibleTransactions.length > 0 && (
