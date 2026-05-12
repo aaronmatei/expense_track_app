@@ -1,4 +1,4 @@
-import { Pencil, Trash2 } from "lucide-react"
+import { Pencil, Trash2, Users } from "lucide-react"
 
 import { CategoryIcon } from "@/components/category-icon"
 import { Button } from "@/components/ui/button"
@@ -86,8 +86,16 @@ export function TransactionList({
                             <TableCell className="text-sm text-slate-600">
                                 {account?.name ?? "—"}
                             </TableCell>
-                            <TableCell className="max-w-xs truncate text-sm text-slate-600">
-                                {t.description || "—"}
+                            <TableCell className="max-w-xs text-sm text-slate-600">
+                                <div className="flex flex-col gap-1">
+                                    <span className="truncate">{t.description || "—"}</span>
+                                    {t.employee && (
+                                        <span className="inline-flex w-fit items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">
+                                            <Users className="h-3 w-3" />
+                                            {t.employee.full_name}
+                                        </span>
+                                    )}
+                                </div>
                             </TableCell>
                             <TableCell
                                 className={cn(

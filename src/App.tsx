@@ -7,6 +7,7 @@ import { AccountsPage } from "@/pages/accounts"
 import { BudgetsPage } from "@/pages/budgets"
 import { CategoriesPage } from "@/pages/categories"
 import { DashboardPage } from "@/pages/dashboard"
+import { EmployeesPage } from "@/pages/employees"
 import { LoginPage } from "@/pages/login"
 import { RegisterPage } from "@/pages/register"
 import { SettingsPage } from "@/pages/settings"
@@ -27,6 +28,7 @@ function App() {
               <Route path="/categories" element={<CategoriesPage />} />
               <Route path="/budgets" element={<BudgetsPage />} />
               <Route path="/accounts" element={<AccountsPage />} />
+              <Route path="/employees" element={<EmployeesPage />} />
               <Route path="/settings" element={<SettingsPage />} />
             </Route>
           </Route>

@@ -1,6 +1,7 @@
 import { X } from "lucide-react"
 
 import { CategoryMultiSelect } from "@/components/transactions/category-multi-select"
+import { EmployeeCombobox } from "@/components/employees/employee-combobox"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/select"
 import { useAccounts } from "@/hooks/use-accounts"
 import { useCategories } from "@/hooks/use-categories"
+import type { Employee } from "@/types/employee"
 
 export interface TransactionFiltersState {
     startDate: string
@@ -20,6 +22,7 @@ export interface TransactionFiltersState {
     categoryIds: number[]
     accountId: string
     type: "all" | "income" | "expense"
+    employeeId: number | null
 }
 
 interface TransactionFiltersProps {
@@ -40,7 +43,8 @@ export function TransactionFilters({
         !!filters.endDate ||
         filters.categoryIds.length > 0 ||
         !!filters.accountId ||
-        filters.type !== "all"
+        filters.type !== "all" ||
+        filters.employeeId !== null
 
     return (
         <div className="flex flex-wrap items-end gap-3 rounded-lg border border-slate-200 bg-white p-4">
@@ -120,6 +124,19 @@ export function TransactionFilters({
                         ))}
                     </SelectContent>
                 </Select>
+            </div>
+            <div className="space-y-1">
+                <Label className="text-xs">Employee</Label>
+                <div className="w-48">
+                    <EmployeeCombobox
+                        value={filters.employeeId}
+                        onChange={(_id: number | null, _emp: Employee | null) =>
+                            onChange({ ...filters, employeeId: _id })
+                        }
+                        placeholder="All employees"
+                        allowClear={true}
+                    />
+                </div>
             </div>
             {hasFilters && (
                 <Button

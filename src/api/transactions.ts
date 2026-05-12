@@ -20,6 +20,7 @@ export async function listTransactions(
             end_date: filters.end_date || undefined,
             category_ids: filters.category_ids?.length ? filters.category_ids : undefined,
             account_id: filters.account_id ?? undefined,
+            employee_id: filters.employee_id ?? undefined,
         },
         paramsSerializer: { indexes: null },
     })

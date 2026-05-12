@@ -1,3 +1,4 @@
+import { Users } from "lucide-react"
 import { Link } from "react-router-dom"
 
 import { CategoryIcon } from "@/components/category-icon"
@@ -58,6 +59,12 @@ export function RecentTransactions() {
                                             <p className="truncate text-xs text-slate-500">
                                                 {t.description}
                                             </p>
+                                        )}
+                                        {t.employee && (
+                                            <span className="mt-0.5 inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">
+                                                <Users className="h-3 w-3" />
+                                                {t.employee.full_name}
+                                            </span>
                                         )}
                                     </div>
                                     <div className="shrink-0 text-right">

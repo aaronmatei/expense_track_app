@@ -23,6 +23,7 @@ const EMPTY_FILTERS: TransactionFiltersState = {
     categoryIds: [],
     accountId: "",
     type: "all",
+    employeeId: null,
 }
 
 export function TransactionsPage() {
@@ -37,6 +38,7 @@ export function TransactionsPage() {
         end_date: filters.endDate || undefined,
         category_ids: filters.categoryIds.length ? filters.categoryIds : undefined,
         account_id: filters.accountId ? Number(filters.accountId) : undefined,
+        employee_id: filters.employeeId ?? undefined,
     }
 
     const transactions = useTransactions(apiFilters)
@@ -95,7 +97,8 @@ export function TransactionsPage() {
         !!filters.endDate ||
         filters.categoryIds.length > 0 ||
         !!filters.accountId ||
-        filters.type !== "all"
+        filters.type !== "all" ||
+        filters.employeeId !== null
 
     return (
         <div className="space-y-6">

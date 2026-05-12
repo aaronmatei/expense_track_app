@@ -5,6 +5,7 @@ import {
     Wallet,
     Landmark,
     Settings as SettingsIcon,
+    Users,
 } from "lucide-react"
 import { NavLink } from "react-router-dom"
 
@@ -19,6 +20,7 @@ const navItems = [
     { to: "/categories", label: "Categories", icon: Tag },
     { to: "/budgets", label: "Budgets", icon: Wallet },
     { to: "/accounts", label: "Accounts", icon: Landmark },
+    { to: "/employees", label: "Employees", icon: Users },
     { to: "/settings", label: "Settings", icon: SettingsIcon },
 ]
 

@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react"
 
 import { CategoryIcon } from "@/components/category-icon"
+import { EmployeeCombobox } from "@/components/transactions/employee-combobox"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -18,6 +19,7 @@ import { useAccounts } from "@/hooks/use-accounts"
 import { useCategories } from "@/hooks/use-categories"
 import { formatCurrency } from "@/lib/format"
 import type { Transaction, TransactionCreate } from "@/types/transaction"
+import type { Employee } from "@/types/employee"
 
 function todayISO(): string {
     return new Date().toISOString().split("T")[0]
@@ -51,6 +53,10 @@ export function TransactionForm({
     const [accountId, setAccountId] = useState<string>(
         transaction?.account_id ? String(transaction.account_id) : "",
     )
+    const [employeeId, setEmployeeId] = useState<number | null>(
+        transaction?.employee_id ?? null,
+    )
+    const [defaultsApplied, setDefaultsApplied] = useState(false)
 
     // Reset all fields when switching between create / edit
     useEffect(() => {
@@ -59,6 +65,8 @@ export function TransactionForm({
         setTransactionDate(transaction?.transaction_date ?? todayISO())
         setCategoryId(transaction?.category_id ? String(transaction.category_id) : "")
         setAccountId(transaction?.account_id ? String(transaction.account_id) : "")
+        setEmployeeId(transaction?.employee_id ?? null)
+        setDefaultsApplied(false)
     }, [transaction])
 
     // Auto-select default account for new transactions once accounts load
@@ -73,6 +81,35 @@ export function TransactionForm({
         })
     }, [accounts.data, transaction])
 
+    function handleEmployeeChange(id: number | null, employee: Employee | null) {
+        setEmployeeId(id)
+        setDefaultsApplied(false)
+
+        if (!employee) return
+
+        let applied = false
+
+        // Auto-fill amount if empty or zero
+        if ((!amount || Number(amount) === 0) && employee.pay_amount) {
+            setAmount(employee.pay_amount)
+            applied = true
+        }
+
+        // Auto-fill category if unset
+        if (!categoryId && employee.default_category_id) {
+            setCategoryId(String(employee.default_category_id))
+            applied = true
+        }
+
+        // Auto-fill account if unset
+        if (!accountId && employee.default_account_id) {
+            setAccountId(String(employee.default_account_id))
+            applied = true
+        }
+
+        if (applied) setDefaultsApplied(true)
+    }
+
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
         if (!categoryId || !accountId) return
@@ -82,6 +119,7 @@ export function TransactionForm({
             transaction_date: transactionDate,
             category_id: Number(categoryId),
             account_id: Number(accountId),
+            employee_id: employeeId,
         })
     }
 
@@ -177,6 +215,19 @@ export function TransactionForm({
                 {noAccounts && (
                     <p className="text-xs text-amber-700">
                         Create at least one account before recording transactions.
+                    </p>
+                )}
+            </div>
+
+            <div className="space-y-2">
+                <Label>Employee (optional)</Label>
+                <EmployeeCombobox
+                    value={employeeId}
+                    onChange={handleEmployeeChange}
+                />
+                {defaultsApplied && employeeId && (
+                    <p className="text-xs text-slate-500">
+                        Defaults applied where fields were empty
                     </p>
                 )}
             </div>
