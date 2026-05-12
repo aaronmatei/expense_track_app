@@ -506,6 +506,7 @@ function PayrollStep({ form }: { form: UseFormReturn<EmployeeFormValues> }) {
                 )}
             />
 
+
             <FormField
                 control={form.control}
                 name="default_account_id"
@@ -632,11 +633,17 @@ export function EmployeeForm({
         setCurrentStep((s) => Math.max(0, s - 1))
     }
 
+    async function handleSubmitClick() {
+        const isValid = await form.trigger(STEP_FIELDS[currentStep])
+        if (!isValid) return
+        await form.handleSubmit(onSubmit)()
+    }
+
     const isLastStep = currentStep === STEP_LABELS.length - 1
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <div className="px-8 py-6">
                     <h2 className="mb-6 text-lg font-semibold text-slate-900">
                         {STEP_LABELS[currentStep]}
@@ -673,6 +680,7 @@ export function EmployeeForm({
 
                     {!isLastStep ? (
                         <Button
+                            key="next-btn"
                             type="button"
                             variant="ghost"
                             onClick={handleNext}
@@ -682,12 +690,17 @@ export function EmployeeForm({
                             <ChevronRight className="ml-1 h-4 w-4" />
                         </Button>
                     ) : (
-                        <Button type="submit" disabled={isSubmitting}>
+                        <Button
+                            key="submit-btn"
+                            type="button"
+                            onClick={handleSubmitClick}
+                            disabled={isSubmitting}
+                        >
                             {isSubmitting
                                 ? "Saving..."
                                 : initialValues
-                                  ? "Save changes"
-                                  : "Create employee"}
+                                    ? "Save changes"
+                                    : "Create employee"}
                         </Button>
                     )}
                 </div>
