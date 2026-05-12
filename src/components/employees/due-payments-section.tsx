@@ -23,15 +23,19 @@ export function DuePaymentsSection({
     const dueQuery = useDueEmployees()
     const due = dueQuery.data ?? []
 
+    // Only show employees with a known pay amount in the bulk-pay UI
+    const payable = due.filter(
+        (e) => e.pay_amount != null && e.pay_amount !== "",
+    )
+
     const [payTarget, setPayTarget] = useState<Employee | undefined>(undefined)
     const [payOpen, setPayOpen] = useState(false)
     const [selected, setSelected] = useState<Set<number>>(new Set())
     const [bulkOpen, setBulkOpen] = useState(false)
 
-    const visible = variant === "widget" ? due.slice(0, limit) : due
+    const visible = variant === "widget" ? payable.slice(0, limit) : payable
 
-    // Don't render the page section at all when no one is due
-    if (variant === "page" && due.length === 0) return null
+    if (variant === "page" && payable.length === 0) return null
 
     function openPay(emp: Employee) {
         setPayTarget(emp)
@@ -48,14 +52,14 @@ export function DuePaymentsSection({
     }
 
     function selectAll() {
-        if (selected.size === due.length) {
+        if (selected.size === payable.length) {
             setSelected(new Set())
         } else {
-            setSelected(new Set(due.map((e) => e.id)))
+            setSelected(new Set(payable.map((e) => e.id)))
         }
     }
 
-    const selectedEmployees = due.filter((e) => selected.has(e.id))
+    const selectedEmployees = payable.filter((e) => selected.has(e.id))
 
     return (
         <>
@@ -69,25 +73,25 @@ export function DuePaymentsSection({
                 <div className="flex items-center justify-between border-b px-4 py-3">
                     <div className="flex items-center gap-2">
                         <h2 className="text-sm font-semibold">Due Payments</h2>
-                        {due.length > 0 && (
+                        {payable.length > 0 && (
                             <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700">
-                                {due.length}
+                                {payable.length}
                             </span>
                         )}
                     </div>
-                    {variant === "widget" && due.length > limit && (
+                    {variant === "widget" && payable.length > limit && (
                         <Link
                             to="/employees"
                             className="text-xs text-indigo-600 hover:underline"
                         >
-                            View all ({due.length})
+                            View all ({payable.length})
                         </Link>
                     )}
-                    {variant === "page" && due.length > 1 && (
+                    {variant === "page" && payable.length > 1 && (
                         <div className="flex items-center gap-2">
                             <Checkbox
                                 id="select-all"
-                                checked={selected.size === due.length}
+                                checked={selected.size === payable.length}
                                 onCheckedChange={selectAll}
                             />
                             <label
@@ -101,7 +105,7 @@ export function DuePaymentsSection({
                 </div>
 
                 {/* Empty state (widget only — page variant hides whole section) */}
-                {due.length === 0 && variant === "widget" && (
+                {payable.length === 0 && variant === "widget" && (
                     <p className="px-4 py-6 text-center text-sm text-slate-500">
                         Everyone is up to date 🎉
                     </p>
@@ -149,15 +153,9 @@ export function DuePaymentsSection({
                             </div>
                         </div>
 
-                        {/* Amount */}
-                        <span className="hidden shrink-0 text-sm tabular-nums sm:block">
-                            {emp.pay_amount != null ? (
-                                <span className="font-medium">
-                                    KES {Number(emp.pay_amount).toLocaleString()}
-                                </span>
-                            ) : (
-                                <span className="italic text-slate-500">Variable</span>
-                            )}
+                        {/* Amount — always present since we filtered nulls above */}
+                        <span className="hidden shrink-0 text-sm font-medium tabular-nums sm:block">
+                            KES {Number(emp.pay_amount).toLocaleString()}
                         </span>
 
                         {/* Pay button */}
@@ -174,13 +172,13 @@ export function DuePaymentsSection({
                 ))}
 
                 {/* Widget: "View all" footer when truncated */}
-                {variant === "widget" && due.length > limit && (
+                {variant === "widget" && payable.length > limit && (
                     <div className="border-t px-4 py-2 text-center">
                         <Link
                             to="/employees"
                             className="text-xs text-indigo-600 hover:underline"
                         >
-                            View all {due.length} due employees →
+                            View all {payable.length} due employees →
                         </Link>
                     </div>
                 )}

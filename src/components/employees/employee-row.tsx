@@ -63,7 +63,7 @@ export function EmployeeRow({
                             KES {Number(employee.pay_amount).toLocaleString()}
                         </span>
                     ) : (
-                        <span className="text-sm italic text-slate-500">Variable</span>
+                        <span className="text-sm italic text-slate-500">N/A</span>
                     )}
                 </div>
 
