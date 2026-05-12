@@ -142,8 +142,8 @@ export function TransactionsPage() {
                                 stats.net > 0
                                     ? "text-emerald-600"
                                     : stats.net < 0
-                                      ? "text-rose-600"
-                                      : "text-slate-700",
+                                        ? "text-rose-600"
+                                        : "text-slate-700",
                             )}
                         >
                             {stats.net > 0 && "+"}{formatCurrency(stats.net)}

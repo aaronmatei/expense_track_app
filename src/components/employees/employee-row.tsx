@@ -58,9 +58,13 @@ export function EmployeeRow({
                         frequency={employee.pay_frequency}
                         config={employee.pay_day_config}
                     />
-                    <span className="text-sm font-medium tabular-nums">
-                        KES {Number(employee.pay_amount).toLocaleString()}
-                    </span>
+                    {employee.pay_amount != null ? (
+                        <span className="text-sm font-medium tabular-nums">
+                            KES {Number(employee.pay_amount).toLocaleString()}
+                        </span>
+                    ) : (
+                        <span className="text-sm italic text-slate-500">Variable</span>
+                    )}
                 </div>
 
                 {/* Status */}

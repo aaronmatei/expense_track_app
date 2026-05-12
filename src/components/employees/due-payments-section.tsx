@@ -146,8 +146,14 @@ export function DuePaymentsSection({
                         </div>
 
                         {/* Amount */}
-                        <span className="hidden shrink-0 text-sm font-medium tabular-nums sm:block">
-                            KES {Number(emp.pay_amount).toLocaleString()}
+                        <span className="hidden shrink-0 text-sm tabular-nums sm:block">
+                            {emp.pay_amount != null ? (
+                                <span className="font-medium">
+                                    KES {Number(emp.pay_amount).toLocaleString()}
+                                </span>
+                            ) : (
+                                <span className="italic text-slate-500">Variable</span>
+                            )}
                         </span>
 
                         {/* Pay button */}

@@ -155,7 +155,7 @@ export function EmployeeForm({
         setKraPin(employee.kra_pin ?? "")
         setNhifNumber(employee.nhif_number ?? "")
         setNssfNumber(employee.nssf_number ?? "")
-        setPayAmount(employee.pay_amount)
+        setPayAmount(employee.pay_amount ?? "")
         setPayFrequency(employee.pay_frequency)
         setPayDayConfig(employee.pay_day_config)
         setDefaultAccountId(
@@ -199,7 +199,7 @@ export function EmployeeForm({
             kra_pin: kraPin.trim() || null,
             nhif_number: nhifNumber.trim() || null,
             nssf_number: nssfNumber.trim() || null,
-            pay_amount: payAmount,
+            pay_amount: payAmount.trim() ? payAmount : null,
             pay_frequency: payFrequency,
             pay_day_config: payDayConfig,
             default_account_id: defaultAccountId
@@ -215,13 +215,12 @@ export function EmployeeForm({
         firstName.trim() &&
         lastName.trim() &&
         startDate &&
-        payAmount &&
         payFrequency &&
         payDayConfig
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <Tabs defaultValue="identity" className="w-full">
+            <Tabs defaultValue="identity" className="w-full min-h-[420px]">
                 <TabsList className="grid w-full grid-cols-5">
                     <TabsTrigger value="identity">Identity</TabsTrigger>
                     <TabsTrigger value="contact">Contact</TabsTrigger>
@@ -231,7 +230,7 @@ export function EmployeeForm({
                 </TabsList>
 
                 {/* Identity */}
-                <TabsContent value="identity" className="mt-4 space-y-4">
+                <TabsContent value="identity" className="pt-6 space-y-4">
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div className="space-y-2">
                             <Label htmlFor="first_name">
@@ -301,7 +300,7 @@ export function EmployeeForm({
                 </TabsContent>
 
                 {/* Contact */}
-                <TabsContent value="contact" className="mt-4 space-y-4">
+                <TabsContent value="contact" className="pt-6 space-y-4">
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
@@ -362,7 +361,7 @@ export function EmployeeForm({
                 </TabsContent>
 
                 {/* Employment */}
-                <TabsContent value="employment" className="mt-4 space-y-4">
+                <TabsContent value="employment" className="pt-6 space-y-4">
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div className="space-y-2">
                             <Label htmlFor="position">Position</Label>
@@ -435,7 +434,7 @@ export function EmployeeForm({
                 </TabsContent>
 
                 {/* Banking */}
-                <TabsContent value="banking" className="mt-4 space-y-4">
+                <TabsContent value="banking" className="pt-6 space-y-4">
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div className="space-y-2">
                             <Label htmlFor="bank_name">Bank name</Label>
@@ -501,13 +500,10 @@ export function EmployeeForm({
                 </TabsContent>
 
                 {/* Payroll */}
-                <TabsContent value="payroll" className="mt-4 space-y-4">
+                <TabsContent value="payroll" className="pt-6 space-y-4">
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div className="space-y-2">
-                            <Label htmlFor="pay_amount">
-                                Pay amount
-                                <RequiredMark />
-                            </Label>
+                            <Label htmlFor="pay_amount">Typical pay amount</Label>
                             <div className="flex items-center">
                                 <span className="flex h-9 items-center rounded-l-md border border-r-0 border-slate-200 bg-slate-50 px-3 text-sm text-slate-500">
                                     KES
@@ -523,9 +519,11 @@ export function EmployeeForm({
                                     }
                                     placeholder="50000.00"
                                     className="rounded-l-none"
-                                    required
                                 />
                             </div>
+                            <p className="text-xs text-slate-500">
+                                Optional — used to pre-fill the amount when you mark this employee as paid. Leave blank if it varies.
+                            </p>
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="pay_frequency">

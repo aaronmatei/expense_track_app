@@ -49,10 +49,12 @@ export function PayEmployeeDialog({
     const [accountId, setAccountId] = useState("")
     const [categoryId, setCategoryId] = useState("")
     const [description, setDescription] = useState("")
+    const [submitted, setSubmitted] = useState(false)
 
     useEffect(() => {
         if (!employee) return
-        setAmount(employee.pay_amount)
+        setAmount(employee.pay_amount ?? "")
+        setSubmitted(false)
         setDate(todayISO())
         setAccountId(
             employee.default_account_id != null
@@ -72,6 +74,8 @@ export function PayEmployeeDialog({
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
         if (!employee) return
+        setSubmitted(true)
+        if (!amount) return
         payMutation.mutate(
             {
                 id: employee.id,
@@ -129,8 +133,10 @@ export function PayEmployeeDialog({
                                 step="0.01"
                                 value={amount}
                                 onChange={(e) => setAmount(e.target.value)}
-                                required
                             />
+                            {submitted && !amount && (
+                                <p className="text-xs text-amber-600">Amount is required.</p>
+                            )}
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="pay_date">Date</Label>

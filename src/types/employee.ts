@@ -41,7 +41,7 @@ export interface Employee {
     bank_name: string | null
     bank_account_number: string | null
     bank_branch: string | null
-    pay_amount: string
+    pay_amount: string | null
     pay_frequency: PayFrequency
     pay_day_config: PayDayConfig
     default_account_id: number | null
@@ -101,7 +101,7 @@ export interface EmployeeCreate {
     bank_name?: string | null
     bank_account_number?: string | null
     bank_branch?: string | null
-    pay_amount: string | number
+    pay_amount?: string | number | null
     pay_frequency: PayFrequency
     pay_day_config: PayDayConfig
     default_account_id?: number | null

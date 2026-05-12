@@ -37,7 +37,7 @@ interface RowState {
 function buildRowState(employees: Employee[]): RowState[] {
     return employees.map((e) => ({
         employeeId: e.id,
-        amount: e.pay_amount,
+        amount: e.pay_amount ?? "",
         accountId:
             e.default_account_id != null ? String(e.default_account_id) : "",
     }))
@@ -224,7 +224,7 @@ export function BulkPayDialog({
                                         const emp = employeeMap.get(row.employeeId)
                                         if (!emp) return null
                                         return (
-                                            <tr key={row.employeeId}>
+                                            <tr key={row.employeeId} className={!row.amount ? "bg-amber-50" : undefined}>
                                                 <td className="px-3 py-2">
                                                     <p className="font-medium">
                                                         {emp.full_name}
@@ -248,7 +248,7 @@ export function BulkPayDialog({
                                                                 { amount: e.target.value },
                                                             )
                                                         }
-                                                        className="h-8 w-32"
+                                                        className={`h-8 w-32 ${!row.amount ? "border-amber-300" : ""}`}
                                                     />
                                                 </td>
                                                 <td className="px-3 py-2">
